@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FiMail, FiLock } from "react-icons/fi"; // <-- import icons
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
 
 export default function LoginPage() {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -10,23 +10,44 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // clear previous errors
+    setLoading(true);
 
     if (isRegistering) {
       if (password !== confirmPassword) {
-        alert("Passwords do not match!");
+        setErrorMessage("Passwords do not match!");
+        setLoading(false);
         return;
       }
-      console.log("Registering:", email, password);
-      // Call your Register API here
+      try {
+        const response = await axios.post("/api/auth/register", { email, password });
+        console.log("Registration success:", response.data);
+        alert("Registration successful! Please log in.");
+        setIsRegistering(false); // Switch to login after successful registration
+      } catch (error) {
+        console.error("Registration error:", error);
+        setErrorMessage(error.response?.data?.error || "Registration failed. Please try again.");
+      }
     } else {
-      console.log("Logging in:", email, password);
-      // Call your Login API here
+      try {
+        const response = await axios.post("/api/auth/login", { email, password });
+        console.log("Login success:", response.data);
+        // Example: Store token if backend sends it
+        // localStorage.setItem('token', response.data.token);
+        alert("Login successful!");
+      } catch (error) {
+        console.error("Login error:", error);
+        setErrorMessage(error.response?.data?.error || "Invalid credentials. Please try again.");
+      }
     }
 
+    setLoading(false);
     setEmail("");
     setPassword("");
     setConfirmPassword("");
@@ -42,20 +63,18 @@ export default function LoginPage() {
           border: "1px solid #9b9494",
         }}
       >
-        <h2
-          className="text-3xl font-bold text-center mb-6"
-          style={{ color: "var(--foreground)" }}
-        >
+        <h2 className="text-3xl font-bold text-center mb-6">
           {isRegistering ? "Create Account" : "Welcome Back"}
         </h2>
+
+        {errorMessage && (
+          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email */}
           <div className="relative">
-            <FiMail
-              className="absolute top-5 left-3 text-gray-400 dark:text-gray-500"
-              size={18}
-            />
+            <FiMail className="absolute top-5 left-3 text-gray-400 dark:text-gray-500" size={18} />
             <input
               type="email"
               value={email}
@@ -63,22 +82,16 @@ export default function LoginPage() {
               required
               id="email"
               placeholder="Email address"
-              className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm text-gray-900 dark:text-white placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
+              className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
             />
-            <label
-              htmlFor="email"
-              className="absolute left-10 top-2 text-xs text-gray-500 dark:text-gray-400 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500"
-            >
+            <label htmlFor="email" className="absolute left-10 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
               Email address
             </label>
           </div>
 
           {/* Password */}
           <div className="relative">
-            <FiLock
-              className="absolute top-5 left-3 text-gray-400 dark:text-gray-500"
-              size={18}
-            />
+            <FiLock className="absolute top-5 left-3 text-gray-400 dark:text-gray-500" size={18} />
             <input
               type={showPassword ? "text" : "password"}
               value={password}
@@ -86,15 +99,11 @@ export default function LoginPage() {
               required
               id="password"
               placeholder="Password"
-              className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm text-gray-900 dark:text-white placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
+              className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
             />
-            <label
-              htmlFor="password"
-              className="absolute left-10 top-2 text-xs text-gray-500 dark:text-gray-400 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500"
-            >
+            <label htmlFor="password" className="absolute left-10 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
               Password
             </label>
-            {/* Toggle Eye Icon */}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -104,35 +113,28 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* Confirm Password */}
+          {/* Confirm Password (Only when registering) */}
           {isRegistering && (
             <div className="relative">
-              <FiLock
-                className="absolute top-5 left-3 text-gray-400 dark:text-gray-500"
-                size={18}
-              />
+              <FiLock className="absolute top-5 left-3 text-gray-400 dark:text-gray-500" size={18} />
               <input
-                type={showPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 id="confirmPassword"
                 placeholder="Confirm Password"
-                className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm text-gray-900 dark:text-white placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
+                className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
               />
-              <label
-                htmlFor="confirmPassword"
-                className="absolute left-10 top-2 text-xs text-gray-500 dark:text-gray-400 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500"
-              >
+              <label htmlFor="confirmPassword" className="absolute left-10 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
                 Confirm Password
               </label>
-              {/* Toggle Eye Icon */}
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute top-5 right-3 text-gray-400 dark:text-gray-500"
               >
-                {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
               </button>
             </div>
           )}
@@ -140,20 +142,16 @@ export default function LoginPage() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 rounded-lg font-bold hover:opacity-90 transition-all"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 rounded-lg font-bold hover:opacity-90 transition-all disabled:opacity-50"
           >
-            {isRegistering ? "Register" : "Login"}
+            {loading ? "Processing..." : isRegistering ? "Register" : "Login"}
           </button>
         </form>
 
         {/* Switch Form */}
-        <p
-          className="mt-6 text-center text-sm"
-          style={{ color: "var(--foreground)" }}
-        >
-          {isRegistering
-            ? "Already have an account?"
-            : "Don't have an account?"}{" "}
+        <p className="mt-6 text-center text-sm">
+          {isRegistering ? "Already have an account?" : "Don't have an account?"}{" "}
           <button
             type="button"
             onClick={() => setIsRegistering(!isRegistering)}
