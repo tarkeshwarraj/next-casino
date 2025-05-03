@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] =useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default dark mode
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu toggle
 
@@ -17,6 +18,12 @@ export default function Navbar() {
       root.style.setProperty("--foreground", "#171717");
     }
   }, [isDarkMode]);
+
+  useEffect(() =>{
+    //Check if token exists in localStorage
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  },[]);
 
   const toggleMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -59,6 +66,19 @@ export default function Navbar() {
             <span className="relative">Deposit</span>
           </button>
         </Link>
+
+        {isLoggedIn && <Link href="/dashboard" className="text-blue-500">Go to Dashboard</Link>}
+
+        {isLoggedIn && (
+  <button
+    onClick={() => {
+      localStorage.removeItem('token');
+      setIsLoggedIn(false);
+    }}
+  >
+    Logout
+  </button>
+)}
 
         {/* Login Button */}
         <Link href="/login">
