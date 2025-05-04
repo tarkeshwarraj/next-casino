@@ -11,7 +11,9 @@ export async function GET(req) {
         if(!token) return NextResponse.json({error: 'Unauthorized'}, {status: 401});
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.userId).select('-password');
+        console.log("Decoded Token: ", decoded);
+
+        const user = await User.findById(decoded.id).select('-password');
     
     
         if(!user) return NextResponse.json({error: 'User not found'}, {status: 401});

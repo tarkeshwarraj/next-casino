@@ -12,6 +12,8 @@ export async function POST(req) {
     await connectDB();
 
     const user = await User.findOne({ email });
+    console.log(user);
+    
     if (!user) {
       return NextResponse.json({ error: 'Invalid Email or Password' }, { status: 400 });
     }

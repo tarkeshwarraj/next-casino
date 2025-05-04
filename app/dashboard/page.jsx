@@ -9,7 +9,9 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+
+
+    if (!token) {
       router.push("/login");
     } else {
       fetch("/api/user/me", {
@@ -18,7 +20,16 @@ export default function DashboardPage() {
         },
       })
         .then((res) => res.json())
-        .then((data) => setUser(data.user))
+        .then((data) => {
+          if (data.user) {
+            setUser(data.user);
+            // console.log(data);
+          } else {
+            // Invalid token ➔ Logout
+            localStorage.removeItem("token");
+            router.push("/login");
+          }
+        })
         .catch((err) => {
           console.error(err);
           router.push("/login");

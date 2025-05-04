@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import {useRouter} from 'next/navigation';
 import axios from "axios";
 
 export default function LoginPage() {
@@ -13,6 +14,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +28,17 @@ export default function LoginPage() {
         return;
       }
       try {
+
         const response = await axios.post("/api/auth/register", { email, password });
-        console.log("Registration success:", response.data);
-        alert("Registration successful! Please log in.");
-        setIsRegistering(false); // Switch to login after successful registration
+        // console.log("Registration success:", response.data);
+
+        //Automatically Login after registration
+        // console.log("Auto login success:", response.data.token);
+        localStorage.setItem('token', response.data.token);
+
+        //Redirect
+        router.push('/dashboard');
+
       } catch (error) {
         console.error("Registration error:", error);
         setErrorMessage(error.response?.data?.error || "Registration failed. Please try again.");
@@ -39,7 +48,9 @@ export default function LoginPage() {
         const response = await axios.post("/api/auth/login", { email, password });
         console.log("Login success:", response.data);
         // Example: Store token if backend sends it
-        // localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.data.token);
+        //Optional : Redirect to dashboard
+        window.location.href = '/dashboard';
         alert("Login successful!");
       } catch (error) {
         console.error("Login error:", error);

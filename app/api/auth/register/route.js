@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import { hashPassword } from '@/utils/hashPassword';
 import User from '@/models/User'; 
+import jwt from 'jsonwebtoken';
+import { generateToken } from '@/utils/generateToken';
 
 export async function POST(req){
   try {
@@ -12,9 +14,6 @@ export async function POST(req){
      const body = await req.json();  //Parse once
 
      const {email, password} = body;
-     
-     console.log(body);  //Debug log
-
 
     const existingUser = await User.findOne({ email });
 
@@ -27,7 +26,12 @@ export async function POST(req){
 
     const newUser = await User.create({ email, password: hashedPassword });
 
-    return NextResponse.json({ message: 'User registered successfully', userId: newUser._id });
+    console.log(newUser);  //Debug log
+
+    // Create JWT token here
+    const token = generateToken(newUser);
+
+    return NextResponse.json({ message: 'User registered successfully', userId: newUser._id, token });
  } catch (error) {
    console.error('Error during registration:', error); // Log error
    return NextResponse.json({ error: 'Server error' }, { status: 500 });

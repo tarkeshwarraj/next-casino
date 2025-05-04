@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] =useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null); //null = Loading
   const [isDarkMode, setIsDarkMode] = useState(true); // Default dark mode
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu toggle
 
@@ -19,18 +19,25 @@ export default function Navbar() {
     }
   }, [isDarkMode]);
 
-  useEffect(() =>{
+  useEffect(() => {
     //Check if token exists in localStorage
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-  },[]);
+  }, []);
+
+  // Optional: You can show nothing or a loading spinner while checking login
+  if (isLoggedIn === null) return null;
 
   const toggleMode = () => {
     setIsDarkMode(!isDarkMode);
   };
 
   return (
-    <nav className={`flex justify-between items-center py-6 px-8 border-b ${isDarkMode ? 'dark:border-gray-800' :' border-gray-200'} relative`}>
+    <nav
+      className={`flex justify-between items-center py-6 px-8 border-b ${
+        isDarkMode ? "dark:border-gray-800" : " border-gray-200"
+      } relative`}
+    >
       {/* Logo */}
       <Link
         href="/"
@@ -67,28 +74,33 @@ export default function Navbar() {
           </button>
         </Link>
 
-        {isLoggedIn && <Link href="/dashboard" className="text-blue-500">Go to Dashboard</Link>}
-
         {isLoggedIn && (
-  <button
-    onClick={() => {
-      localStorage.removeItem('token');
-      setIsLoggedIn(false);
-    }}
-  >
-    Logout
-  </button>
-)}
+          <Link href="/dashboard" className="text-blue-500">
+            Go to Dashboard
+          </Link>
+        )}
+
+        {isLoggedIn ? (
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              setIsLoggedIn(false);
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link href="/login">
+            <button
+              className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
+              style={{ color: "var(--foreground)" }}
+            >
+              Login
+            </button>
+          </Link>
+        )}
 
         {/* Login Button */}
-        <Link href="/login">
-          <button
-            className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
-            style={{ color: "var(--foreground)" }}
-          >
-            Login
-          </button>
-        </Link>
 
         <button
           onClick={toggleMode}
@@ -142,7 +154,7 @@ export default function Navbar() {
         style={{
           backgroundColor: isDarkMode ? "#0a0a0a" : "#ffffff",
           color: isDarkMode ? "#ededed" : "#171717",
-          border: "1px solid #e0e0e0"
+          border: "1px solid #e0e0e0",
         }}
       >
         <a
@@ -174,13 +186,14 @@ export default function Navbar() {
         </Link>
 
         {/* Login Button in Mobile Menu */}
-        <Link href="/login" onClick={()=> setIsMenuOpen(false)}>
-          <button className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
-          style={{color: "var(--foreground)"}}
+
+        <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+          <button
+            className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
+            style={{ color: "var(--foreground)" }}
           >
             Login/SignUp
           </button>
-        
         </Link>
 
         <button
