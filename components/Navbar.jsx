@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(null); //null = Loading
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false); // Default dark mode
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu toggle
 
   useEffect(() => {
