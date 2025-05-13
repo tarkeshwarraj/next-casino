@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`flex justify-between items-center py-6 px-8 border-b ${
+      className={`flex justify-between items-center py-4 px-8 border-b ${
         isDarkMode ? "dark:border-gray-800" : " border-gray-200"
       } relative`}
     >
