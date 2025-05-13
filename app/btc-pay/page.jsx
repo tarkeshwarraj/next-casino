@@ -40,7 +40,9 @@ const BtcPayPage = () => {
     <div className="min-h-screen pt-48 flex items-start justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 px-4 pb-8">
 
       <div className="bg-white max-w-md w-full p-8 rounded-2xl shadow-2xl border border-gray-200 hover:shadow-purple-300 transition-all duration-300">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">💳 Pay with USD</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+  💳 Pay Securely with Cash App
+</h2>
 
         {/* Name input */}
         <div className="mb-4">
