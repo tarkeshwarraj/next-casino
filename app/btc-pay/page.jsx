@@ -16,8 +16,8 @@ const BtcPayPage = () => {
       return;
     }
 
-    if (isNaN(numericAmount) || numericAmount < 3) {
-      setError("Minimum payment amount is 3");
+    if (isNaN(numericAmount) || numericAmount < 1) {
+      setError("Minimum payment amount is 1");
       return;
     }
 
@@ -74,7 +74,7 @@ const BtcPayPage = () => {
               <input
                 type="number"
                 step="0.01"
-                min="3"
+                min="1"
                 id="amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
