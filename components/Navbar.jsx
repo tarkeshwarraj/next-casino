@@ -40,7 +40,7 @@ export default function Navbar() {
     >
       {/* Logo */}
       <Link
-        href="/"
+        href=""
         className="text-2xl font-bold"
         style={{ color: "var(--foreground)" }}
       >
@@ -89,15 +89,15 @@ export default function Navbar() {
           >
             Logout
           </button>
-        ) : (
-          <Link href="/login">
-            <button
-              className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
-              style={{ color: "var(--foreground)" }}
-            >
-              Login
-            </button>
-          </Link>
+        ) : (''
+          // <Link href="/login">
+          //   <button
+          //     className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
+          //     style={{ color: "var(--foreground)" }}
+          //   >
+          //     Login
+          //   </button>
+          // </Link>
         )}
 
         {/* Login Button */}
