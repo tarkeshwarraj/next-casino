@@ -49,7 +49,7 @@ export default function Navbar() {
 
       {/* Desktop Menu */}
       <div className="space-x-6 hidden md:flex items-center">
-        <a
+        {/* <a
           href="#features"
           className="hover:underline"
           style={{ color: "var(--foreground)" }}
@@ -62,9 +62,9 @@ export default function Navbar() {
           style={{ color: "var(--foreground)" }}
         >
           Play Now
-        </a>
+        </a> */}
 
-        <Link href="/deposit-withdraw">
+        {/* <Link href="/deposit-withdraw">
           <button
             className="relative inline-flex items-center justify-center py-3 overflow-hidden font-bold rounded-full group transition-all"
             style={{ color: "var(--foreground)" }}
@@ -72,7 +72,7 @@ export default function Navbar() {
             <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition duration-300 blur-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50"></span>
             <span className="relative">Deposit</span>
           </button>
-        </Link>
+        </Link> */}
 
         {isLoggedIn && (
           <Link href="/dashboard" className="text-blue-500">
@@ -157,7 +157,7 @@ export default function Navbar() {
           border: "1px solid #e0e0e0",
         }}
       >
-        <a
+        {/* <a
           href="#features"
           onClick={() => setIsMenuOpen(false)}
           className="hover:underline"
@@ -173,9 +173,9 @@ export default function Navbar() {
           style={{ color: "var(--foreground)" }}
         >
           Play Now
-        </a>
+        </a> */}
 
-        <Link href="/deposit-withdraw" onClick={() => setIsMenuOpen(false)}>
+        {/* <Link href="/deposit-withdraw" onClick={() => setIsMenuOpen(false)}>
           <button
             className="relative inline-flex items-center justify-center overflow-hidden font-bold rounded-full group transition-all"
             style={{ color: "var(--foreground)" }}
@@ -183,18 +183,18 @@ export default function Navbar() {
             <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition duration-300 blur-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50"></span>
             <span className="relative">Deposit</span>
           </button>
-        </Link>
+        </Link> */}
 
         {/* Login Button in Mobile Menu */}
 
-        <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+        {/* <Link href="/login" onClick={() => setIsMenuOpen(false)}>
           <button
             className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
             style={{ color: "var(--foreground)" }}
           >
             Login/SignUp
           </button>
-        </Link>
+        </Link> */}
 
         <button
           onClick={() => {
