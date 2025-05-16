@@ -116,8 +116,8 @@ export default function CardPaymentPage() {
         data.response_payload?.payment_result?.payment_link
       ) {
         setMessage("Redirecting to payment page...");
-        window.location.href =
-          data.response_payload.payment_result.payment_link;
+        window.location.href = data.response_payload.payment_result.payment_link;
+        
       }else if(data.response_payload?.payment_result?.payment_status === "CAPTURED"){
          // SUCCESS: Redirect to /success with query params
         router.push(
@@ -138,6 +138,7 @@ export default function CardPaymentPage() {
           const result = await response.json();
 
           setLink(result.payLink);
+          console.log(result.payLink);
 
           console.log("Fetched result from /api/fetch-link:", result);
 
