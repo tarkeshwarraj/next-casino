@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null); //null = Loading
-  const [isDarkMode, setIsDarkMode] = useState(false); // Default dark mode
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu toggle
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -20,196 +20,105 @@ export default function Navbar() {
   }, [isDarkMode]);
 
   useEffect(() => {
-    //Check if token exists in localStorage
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
 
-  // Optional: You can show nothing or a loading spinner while checking login
   if (isLoggedIn === null) return null;
 
-  const toggleMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
-    <nav
-      className={`flex justify-between items-center py-4 px-8 border-b ${
-        isDarkMode ? "dark:border-gray-800" : " border-gray-200"
-      } relative`}
-    >
-      {/* Logo */}
-      <Link
-        href=""
-        className="text-2xl font-bold"
-        style={{ color: "var(--foreground)" }}
-      >
-        Casino 🎲
-      </Link>
-
-      {/* Desktop Menu */}
-      <div className="space-x-6 hidden md:flex items-center">
-        {/* <a
-          href="#features"
-          className="hover:underline"
-          style={{ color: "var(--foreground)" }}
-        >
-          Features
-        </a>
-        <a
-          href="#play"
-          className="hover:underline"
-          style={{ color: "var(--foreground)" }}
-        >
-          Play Now
-        </a> */}
-
-        {/* <Link href="/deposit-withdraw">
-          <button
-            className="relative inline-flex items-center justify-center py-3 overflow-hidden font-bold rounded-full group transition-all"
-            style={{ color: "var(--foreground)" }}
-          >
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition duration-300 blur-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50"></span>
-            <span className="relative">Deposit</span>
-          </button>
-        </Link> */}
-
-        {isLoggedIn && (
-          <Link href="/dashboard" className="text-blue-500">
-            Go to Dashboard
-          </Link>
-        )}
-
-        {isLoggedIn ? (
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              setIsLoggedIn(false);
-            }}
-          >
-            Logout
-          </button>
-        ) : (''
-          // <Link href="/login">
-          //   <button
-          //     className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
-          //     style={{ color: "var(--foreground)" }}
-          //   >
-          //     Login
-          //   </button>
-          // </Link>
-        )}
-
-        {/* Login Button */}
-
-        <button
-          onClick={toggleMode}
-          className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 ${
-            isDarkMode
-              ? "bg-white text-black hover:bg-gray-200"
-              : "bg-black text-white hover:bg-black"
-          }`}
-        >
-          {isDarkMode ? <>☀️</> : <>🌙</>}
-        </button>
+    <div className="text-sm text-white w-full">
+      {/* Top Banner */}
+      <div className="text-center font-medium py-2 bg-gradient-to-r from-violet-500 via-[#9938CA] to-[#E0724A]">
+        <p>
+          Exclusive Price Drop! Hurry,{" "}
+          <span className="underline underline-offset-2">Offer Ends Soon!</span>
+        </p>
       </div>
 
-      {/* Mobile Menu Button (Animated Hamburger) */}
-      <div className="md:hidden">
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="relative w-8 h-8 flex flex-col justify-between items-center group"
-        >
-          {/* Line 1 */}
-          <span
-            className={`block h-0.5 w-8 bg-current transform transition duration-300 ease-in-out ${
-              isMenuOpen ? "rotate-45 translate-y-3" : ""
-            }`}
-            style={{ color: "var(--foreground)" }}
-          ></span>
-          {/* Line 2 */}
-          <span
-            className={`block h-0.5 w-8 bg-current transition-all duration-300 ease-in-out ${
-              isMenuOpen ? "opacity-0" : ""
-            }`}
-            style={{ color: "var(--foreground)" }}
-          ></span>
-          {/* Line 3 */}
-          <span
-            className={`block h-0.5 w-8 bg-current transform transition duration-300 ease-in-out ${
-              isMenuOpen ? "-rotate-45 -translate-y-3" : ""
-            }`}
-            style={{ color: "var(--foreground)" }}
-          ></span>
+      {/* Navbar */}
+      <nav className="relative h-[70px] flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 bg-white text-gray-900 transition-all shadow-sm">
+        <Link href="#">
+          <img
+            className="h-9"
+            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/dummyLogoDark.svg"
+            alt="Logo"
+          />
+        </Link>
+
+        <ul className="hidden md:flex items-center space-x-8 md:pl-28">
+          <li><Link href="#">Home</Link></li>
+          <li><Link href="#">Services</Link></li>
+          <li><Link href="#">Portfolio</Link></li>
+          <li><Link href="/trust-pay">Load Game</Link></li>
+        </ul>
+
+        <div className="hidden md:flex items-center space-x-4 ml-10">
+        <button className="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all">
+          Get started
         </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`absolute top-20 right-8 rounded-lg shadow-lg flex flex-col items-start p-8 space-y-4 md:hidden z-50 transition-all duration-300 ${
-          isMenuOpen
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-5 pointer-events-none"
-        }`}
-        style={{
-          backgroundColor: isDarkMode ? "#0a0a0a" : "#ffffff",
-          color: isDarkMode ? "#ededed" : "#171717",
-          border: "1px solid #e0e0e0",
-        }}
-      >
-        {/* <a
-          href="#features"
-          onClick={() => setIsMenuOpen(false)}
-          className="hover:underline"
-          style={{ color: "var(--foreground)" }}
-        >
-          Features
-        </a>
-
-        <a
-          href="#play"
-          onClick={() => setIsMenuOpen(false)}
-          className="hover:underline"
-          style={{ color: "var(--foreground)" }}
-        >
-          Play Now
-        </a> */}
-
-        {/* <Link href="/deposit-withdraw" onClick={() => setIsMenuOpen(false)}>
-          <button
-            className="relative inline-flex items-center justify-center overflow-hidden font-bold rounded-full group transition-all"
-            style={{ color: "var(--foreground)" }}
-          >
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition duration-300 blur-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50"></span>
-            <span className="relative">Deposit</span>
-          </button>
-        </Link> */}
-
-        {/* Login Button in Mobile Menu */}
-
-        {/* <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-          <button
-            className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600"
-            style={{ color: "var(--foreground)" }}
-          >
-            Login/SignUp
-          </button>
-        </Link> */}
 
         <button
           onClick={() => {
-            toggleMode();
+            setIsDarkMode(!isDarkMode);
             setIsMenuOpen(false);
           }}
           className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 ${
             isDarkMode
               ? "bg-white text-black hover:bg-gray-200"
-              : "bg-black text-white hover:bg-black"
+              : "bg-black text-white hover:bg-gray-800"
           }`}
         >
-          {isDarkMode ? <>☀️</> : <>🌙</>}
+          {isDarkMode ? "☀️" : "🌙"}
         </button>
-      </div>
-    </nav>
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="menu-btn inline-block md:hidden active:scale-90 transition"
+          aria-label="Toggle Menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <path d="M3 7a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2zm0 7a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2zm0 7a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2z" />
+          </svg>
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="mobile-menu md:hidden bg-white shadow-sm p-6">
+          <ul className="flex flex-col space-y-4 text-lg text-black">
+            <li><Link href="#" className="text-sm">Home</Link></li>
+            <li><Link href="#" className="text-sm">Services</Link></li>
+            <li><Link href="#" className="text-sm">Portfolio</Link></li>
+            <li><Link href="#" className="text-sm">Pricing</Link></li>
+          </ul>
+
+          <button
+            type="button"
+            className="bg-white text-gray-600 border border-gray-300 mt-6 text-sm hover:bg-gray-50 active:scale-95 transition-all w-40 h-11 rounded-full"
+          >
+            Get started
+          </button>
+
+          <button
+          onClick={() => {
+            setIsDarkMode(!isDarkMode);
+            setIsMenuOpen(false);
+          }}
+          className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 ${
+            isDarkMode
+              ? "bg-white text-black hover:bg-gray-200"
+              : "bg-black text-white hover:bg-gray-800"
+          }`}
+        >
+          {isDarkMode ? "☀️" : "🌙"}
+        </button>
+        </div>
+      )}
+
+     
+    </div>
   );
 }
