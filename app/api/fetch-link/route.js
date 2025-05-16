@@ -13,8 +13,10 @@ export async function GET(req) {
     }
 
     const browser = await puppeteer.launch({
+      headless: true,
       // For some platforms (e.g. Linux servers), you may need extra args:
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
     });
     const page = await browser.newPage();
 

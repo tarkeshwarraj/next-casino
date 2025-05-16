@@ -3,6 +3,7 @@ FROM node:18-bullseye-slim
 
 # Puppeteer के लिए जरूरी dependencies install करो
 RUN apt-get update && apt-get install -y \
+    chromium \
     gconf-service \
     libasound2 \
     libatk1.0-0 \
