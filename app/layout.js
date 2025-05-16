@@ -1,6 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "../components/Navbar";
 import "./globals.css";
+import { connectAndLog } from '@/lib/startup';
+
+// Run MongoDB connection on server start
+if (typeof window === 'undefined') {
+  connectAndLog();
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
