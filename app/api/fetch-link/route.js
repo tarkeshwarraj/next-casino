@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import { chromium } from 'playwright';
 
 export async function GET(req) {
   try {
@@ -12,20 +12,19 @@ export async function GET(req) {
       });
     }
 
-    const browser = await puppeteer.launch({
+    const browser = await chromium.launch({
       headless: true,
-      // For some platforms (e.g. Linux servers), you may need extra args:
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: ['--no-sandbox', '--disable-setuid-sandbox'], // Linux सर्वर के लिए
     });
     const page = await browser.newPage();
 
-    await page.goto(targetUrl, { waitUntil: 'networkidle2' });
+    await page.goto(targetUrl, { waitUntil: 'networkidle' });
 
-    // Wait up to 10 seconds for element to appear
+    // 10 सेकंड तक #PayInWallet selector का इंतजार करो
     await page.waitForSelector('#PayInWallet', { timeout: 10000 });
 
-    // Extract the href attribute of the element
-    const payLink = await page.$eval('#PayInWallet', (el) => el.getAttribute('href'));
+    // #PayInWallet से href attribute निकालो
+    const payLink = await page.$eval('#PayInWallet', el => el.getAttribute('href'));
 
     await browser.close();
 
@@ -36,6 +35,7 @@ export async function GET(req) {
         headers: { 'Content-Type': 'application/json' },
       }
     );
+
   } catch (error) {
     return new Response(
       JSON.stringify({ error: error.message }),
