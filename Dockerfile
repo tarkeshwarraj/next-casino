@@ -1,9 +1,11 @@
 # बेस इमेज
 FROM node:18-bullseye-slim
 
-# Puppeteer के लिए जरूरी dependencies install करो
+# Puppeteer को Chromium डाउनलोड करने की अनुमति दो
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
+
+# Puppeteer के लिए जरूरी dependencies इंस्टॉल करो
 RUN apt-get update && apt-get install -y \
-    chromium \
     gconf-service \
     libasound2 \
     libatk1.0-0 \
@@ -37,32 +39,31 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     fonts-liberation \
     libappindicator1 \
-    libnss3 \
     lsb-release \
     xdg-utils \
     wget \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # काम करने वाली directory सेट करो
 WORKDIR /app
 
-# package.json और package-lock.json (या yarn.lock) कॉपी करो
+# package.json और package-lock.json कॉपी करो
 COPY package*.json ./
 
-# npm install करो (या yarn install)
+# Puppeteer को Chromium डाउनलोड करने के लिए इंस्टॉल करो
+RUN npm install puppeteer@latest
+
+# बाकी dependencies इंस्टॉल करो
 RUN npm install
 
 # बाकी ऐप की फाइलें कॉपी करो
 COPY . .
 
-# Puppeteer को chrome executable path बताने के लिए ENV सेट करो (Optional लेकिन बेहतर)
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+# ❌ No need to set PUPPETEER_EXECUTABLE_PATH
+# Puppeteer खुद bundled Chromium use करेगा
 
 # Next.js production build बनाओ
 RUN npm run build
 
-# ऐप स्टार्ट करो (Next.js के लिए)
+# ऐप स्टार्ट करो
 CMD ["npm", "start"]
-
-# अगर तुम्हारा स्क्रैपिंग वाला node सर्वर अलग है, तो उसे भी इसी container में चलाओ या अलग container बनाओ
