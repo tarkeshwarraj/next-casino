@@ -1,5 +1,5 @@
 # Base image
-FROM mcr.microsoft.com/playwright/node:18-slim
+FROM mcr.microsoft.com/playwright:v1.52.0-noble
 
 # Working directory
 WORKDIR /app
