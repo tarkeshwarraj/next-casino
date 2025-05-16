@@ -1,26 +1,26 @@
-# Base image
-FROM mcr.microsoft.com/playwright:v1.52.0-noble
+# ✅ Use official Playwright base image with Node.js 18+
+FROM mcr.microsoft.com/playwright:v1.52.0-jammy
 
-# Working directory
+# Set working directory
 WORKDIR /app
 
-# Copy package files
+# Copy package files first for caching dependencies
 COPY package*.json ./
 
-# Install dependencies
+# Install Node.js dependencies
 RUN npm install
 
-# Install Playwright dependencies & browsers
+# (Optional) Install Chromium-based tools (already handled by base image)
 RUN npx playwright install --with-deps
 
-# Copy rest of the project
+# Copy remaining source code
 COPY . .
 
-# Build Next.js project
+# Build the Next.js project
 RUN npm run build
 
-# Expose port (Next.js uses 3000 by default)
+# Expose the port Next.js runs on
 EXPOSE 3000
 
-# Start the app
+# Start the application
 CMD ["npm", "start"]
