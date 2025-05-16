@@ -1,6 +1,8 @@
-import { chromium } from 'playwright';
 
 export async function GET(req) {
+  
+  const { chromium } = await import('playwright');
+
   try {
     const { searchParams } = new URL(req.url);
     const targetUrl = searchParams.get('url');
