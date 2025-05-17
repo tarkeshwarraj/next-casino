@@ -32,7 +32,7 @@ export default function CardPaymentPage() {
     cashapp_username: "",
   });
 
-  const [paymentMethod, setPaymentMethod] = useState("CREDIT_CARD"); // NEW
+  const [paymentMethod, setPaymentMethod] = useState("CashApp"); // NEW
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [link, setLink] = useState("");
@@ -181,6 +181,21 @@ export default function CardPaymentPage() {
           Choose Payment Method
         </h1>
         <div className="grid grid-cols-2 gap-4">
+          {/* CashApp */}
+          <div
+            onClick={() => setPaymentMethod("CashApp")}
+            className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center transition duration-200 ${
+              paymentMethod === "CashApp"
+                ? "border-green-600 bg-green-50"
+                : "border-gray-300 bg-white hover:bg-gray-50"
+            }`}
+          >
+            <div className="flex flex-col items-center justify-center">
+              <SiCashapp className="h-8 w-8 text-green-500 mb-2" />
+              <span className="font-medium text-sm text-gray-700">CashApp</span>
+            </div>
+          </div>
+
           {/* Credit/Debit Card */}
           <div
             onClick={() => setPaymentMethod("CREDIT_CARD")}
@@ -198,20 +213,7 @@ export default function CardPaymentPage() {
             </div>
           </div>
 
-          {/* CashApp */}
-          <div
-            onClick={() => setPaymentMethod("CashApp")}
-            className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center transition duration-200 ${
-              paymentMethod === "CashApp"
-                ? "border-green-600 bg-green-50"
-                : "border-gray-300 bg-white hover:bg-gray-50"
-            }`}
-          >
-            <div className="flex flex-col items-center justify-center">
-              <SiCashapp className="h-8 w-8 text-green-500 mb-2" />
-              <span className="font-medium text-sm text-gray-700">CashApp</span>
-            </div>
-          </div>
+          
         </div>
       </div>
 
