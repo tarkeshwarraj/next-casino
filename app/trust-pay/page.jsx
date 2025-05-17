@@ -116,17 +116,20 @@ export default function CardPaymentPage() {
         data.response_payload?.payment_result?.payment_link
       ) {
         setMessage("Redirecting to payment page...");
-        window.location.href = data.response_payload.payment_result.payment_link;
-        
-      }else if(data.response_payload?.payment_result?.payment_status === "CAPTURED"){
-         // SUCCESS: Redirect to /success with query params
+        window.location.href =
+          data.response_payload.payment_result.payment_link;
+      } else if (
+        data.response_payload?.payment_result?.payment_status === "CAPTURED"
+      ) {
+        // SUCCESS: Redirect to /success with query params
         router.push(
           `/payment-success?paymentRef=${refId}&amount=${amountNum}&paymentMethod=${paymentMethod}`
         );
-      }else if(data.response_payload?.payment_result?.payment_status === "FAILED"){   
+      } else if (
+        data.response_payload?.payment_result?.payment_status === "FAILED"
+      ) {
         router.push("/payment-fail");
-      }
-       else if (data.checkoutLink) {
+      } else if (data.checkoutLink) {
         // Instead of redirecting, send the checkout link to your backend API to fetch the payLink
         try {
           console.log("checkoutLink:", data.checkoutLink);
@@ -154,8 +157,6 @@ export default function CardPaymentPage() {
         }
       } else if (data.error) {
         setMessage(`❌ Error: ${data.message}`);
-      } else {
-       
       }
     } catch (err) {
       console.error(err);
@@ -212,8 +213,6 @@ export default function CardPaymentPage() {
               </span>
             </div>
           </div>
-
-          
         </div>
       </div>
 
@@ -226,7 +225,6 @@ export default function CardPaymentPage() {
           <CashApp formData={formData} handleChange={handleChange} />
         )}
 
-        
         {link ? (
           ""
         ) : (
@@ -274,11 +272,14 @@ export default function CardPaymentPage() {
           alt="MasterCard"
           className="h-6"
         />
-        <img
-          src="https://i.ibb.co/h1wgQmgb/cashapp.png"
+        {/* <img
+          src={}
           alt="CashApp"
           className="h-6"
-        />
+        /> */}
+        <div className="h-6">
+          <SiCashapp className="h-6 w-6 text-green-500 mb-2" />
+        </div>
       </div>
       <p className="text-center text-sm text-gray-500 mt-4">
         🔐 100% Secure Payments — Norton Secured & SSL Encrypted

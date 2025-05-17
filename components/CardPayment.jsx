@@ -16,7 +16,6 @@ const CreditCardForm = ({ formData, handleChange }) => {
     } else {
       setExpiry("");
     }
-    console.log(formData);
   }, [formData.expiry_month, formData.expiry_year]);
 
   // Allow only letters and spaces in card holder name
