@@ -31,21 +31,21 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center space-x-8" style={{ color: "var(--foreground)" }}>
-          <li>
+        <ul className="hidden md:flex items-center space-x-8 " style={{ color: "var(--foreground)" }}>
+          <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
             <Link href="/">Home</Link>
           </li>
-          <li>
+          <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
             <Link href="#">Games</Link>
           </li>
-          <li>
+          <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
             <Link href="/trust-pay">Load Game</Link>
           </li>
         </ul>
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="bg-white hover:bg-gray-50 border border-gray-300 px-6 py-2 rounded-full active:scale-95 transition-all">
+          <button className=" hover:bg-gray-50 border border-gray-300 px-6 py-2 rounded-full active:scale-95 transition-all" style={{ color: "var(--foreground)" }}>
             Get started
           </button>
 
@@ -115,18 +115,18 @@ export default function Navbar() {
     style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
       >
         <ul onClick={()=>{setIsMenuOpen(false)}} className="flex flex-col space-y-4 text-lg text-black" style={{ color: "var(--foreground)" }}>
-          <li>
-            <Link href="/" className="text-sm">
+          <li className="active:scale-95">
+            <Link href="/" className="text-sm px-6 py-2 rounded-full border border-gray-300">
               Home
             </Link>
           </li>
-          <li>
-            <Link href="#" className="text-sm">
+          <li className="active:scale-95">
+            <Link href="#" className="text-sm px-6 py-2 rounded-full border border-gray-300">
               Games
             </Link>
           </li>
-          <li>
-            <Link href="/trust-pay">Load Game</Link>
+          <li className="active:scale-95">
+            <Link  href="/trust-pay" className="text-sm px-6 py-2 rounded-full border border-gray-300 " >Load Game</Link>
           </li>
         </ul>
 
@@ -144,7 +144,7 @@ export default function Navbar() {
             setIsDarkMode(!isDarkMode);
             setIsMenuOpen(false);
           }}
-          className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 w-full mt-4 ${
+          className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 w-full mt-4 active:scale-95 ${
             isDarkMode
               ? "bg-white text-black hover:bg-gray-200 border border-gray-300"
               : "bg-black text-white hover:bg-gray-800"
