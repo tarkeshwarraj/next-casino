@@ -1,8 +1,6 @@
+import { chromium } from 'playwright-core';
 
 export async function GET(req) {
-  
-  const { chromium } = await import('playwright');
-
   try {
     const { searchParams } = new URL(req.url);
     const targetUrl = searchParams.get('url');
@@ -14,37 +12,33 @@ export async function GET(req) {
       });
     }
 
-    const browser = await chromium.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'], // Linux सर्वर के लिए
-    });
-    const page = await browser.newPage();
+    const TOKEN = 'YOUR_BROWSERLESS_TOKEN'; // 🔐 Replace this with your actual token
+
+    const browser = await chromium.connect(
+      `wss://production-sfo.browserless.io/chromium/playwright?token=2SKFGScKsveYbjp48c8f09230dd1a25c554690ed0b5cfa1d1`
+    );
+
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
     await page.goto(targetUrl, { waitUntil: 'networkidle' });
 
-    // 10 सेकंड तक #PayInWallet selector का इंतजार करो
+    // #PayInWallet element का wait और href निकालना
     await page.waitForSelector('#PayInWallet', { timeout: 10000 });
 
-    // #PayInWallet से href attribute निकालो
     const payLink = await page.$eval('#PayInWallet', el => el.getAttribute('href'));
 
     await browser.close();
 
-    return new Response(
-      JSON.stringify({ payLink }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ payLink }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
 
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
