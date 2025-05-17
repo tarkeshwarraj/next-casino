@@ -13,6 +13,9 @@ RUN npm install
 # (Optional) Install Chromium-based tools (already handled by base image)
 RUN npx playwright install --with-deps
 
+# ✅ Copy the environment file before building
+COPY .env.local .env.local
+
 # Copy remaining source code
 COPY . .
 
