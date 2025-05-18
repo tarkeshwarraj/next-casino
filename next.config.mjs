@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
+  images: {
+    domains: ["media4.giphy.com", "media0.giphy.com"],
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Client-side bundling के लिए playwright को खाली object से replace करो
       config.resolve.fallback = {
         ...config.resolve.fallback,
         'playwright': false,

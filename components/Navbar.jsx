@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
     if (isDarkMode) {
-      root.style.setProperty("--background", "#0a0a0a");
+      root.style.setProperty("--background", "#1a1f24");
       root.style.setProperty("--foreground", "#ededed");
     } else {
       root.style.setProperty("--background", "#ffffff");
@@ -20,23 +20,31 @@ export default function Navbar() {
 
   return (
     <div className="relative text-sm text-white w-full">
-      <nav className="relative h-[70px] flex items-center justify-between px-6 bg-white text-gray-900 shadow-sm"
-      style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
+      <nav
+        className="relative h-[70px] flex items-center justify-between px-6 bg-white text-gray-900 shadow-sm z-40"
+        style={{
+          backgroundColor: "var(--background)",
+          color: "var(--foreground)",
+        }}
+      >
         <Link href="#">
           <img
             className="h-9"
-            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/dummyLogoDark.svg"
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjRzMG53NmNkZXhkdzVtYjYzYXdtNTZuOWx3ZGZmZmtpcnlvNTJtNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PhdC5X5qr6mzK/giphy.gif"
             alt="Logo"
           />
         </Link>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center space-x-8 " style={{ color: "var(--foreground)" }}>
+        <ul
+          className="hidden md:flex items-center space-x-8 "
+          style={{ color: "var(--foreground)" }}
+        >
           <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
             <Link href="/">Home</Link>
           </li>
           <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
-            <Link href="#">Games</Link>
+            <Link href="/games">Games</Link>
           </li>
           <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
             <Link href="/trust-pay">Load Game</Link>
@@ -45,7 +53,10 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className=" hover:bg-gray-50 border border-gray-300 px-6 py-2 rounded-full active:scale-95 transition-all" style={{ color: "var(--foreground)" }}>
+          <button
+            className=" hover:bg-gray-50 border border-gray-300 px-6 py-2 rounded-full active:scale-95 transition-all"
+            style={{ color: "var(--foreground)" }}
+          >
             Get started
           </button>
 
@@ -112,26 +123,49 @@ export default function Navbar() {
         ? "max-h-[400px] opacity-100 translate-x-0"
         : "max-h-0 opacity-0 translate-x-10 pointer-events-none"
     }`}
-    style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
+        style={{
+          backgroundColor: "var(--background)",
+          color: "var(--foreground)",
+          zIndex: 50
+        }}
       >
-        <ul onClick={()=>{setIsMenuOpen(false)}} className="flex flex-col space-y-4 text-lg text-black" style={{ color: "var(--foreground)" }}>
+        <ul
+          onClick={() => {
+            setIsMenuOpen(false);
+          }}
+          className="flex flex-col space-y-4 text-lg text-black"
+          style={{ color: "var(--foreground)" }}
+        >
           <li className="active:scale-95">
-            <Link href="/" className="text-sm px-6 py-2 rounded-full border border-gray-300">
+            <Link
+              href="/"
+              className="text-sm px-6 py-2 rounded-full border border-gray-300"
+            >
               Home
             </Link>
           </li>
           <li className="active:scale-95">
-            <Link href="#" className="text-sm px-6 py-2 rounded-full border border-gray-300">
+            <Link
+              href="/games"
+              className="text-sm px-6 py-2 rounded-full border border-gray-300"
+            >
               Games
             </Link>
           </li>
           <li className="active:scale-95">
-            <Link  href="/trust-pay" className="text-sm px-6 py-2 rounded-full border border-gray-300 " >Load Game</Link>
+            <Link
+              href="/trust-pay"
+              className="text-sm px-6 py-2 rounded-full border border-gray-300 "
+            >
+              Load Game
+            </Link>
           </li>
         </ul>
 
         <button
-          onClick={()=>{setIsMenuOpen(false)}}
+          onClick={() => {
+            setIsMenuOpen(false);
+          }}
           type="button"
           className=" text-gray-600 border border-gray-300 mt-6 text-sm hover:bg-gray-50 active:scale-95 transition-all w-full h-11 rounded-full"
           style={{ color: "var(--foreground)" }}

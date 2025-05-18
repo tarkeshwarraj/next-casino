@@ -10,7 +10,8 @@
     "build": "next build",
     "postinstall": "npx playwright install",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tailwind-init": "tailwindcss init -f"
   },
   "dependencies": {
     "axios": "^1.9.0",
