@@ -174,10 +174,10 @@ export default function CardPaymentPage() {
   }, [paymentMethod]);
 
   return (
-    <div className="max-w-md mx-auto mt-6 p-6 space-y-6 bg-white shadow-xl border border-gray-200 rounded-xl">
+    <div className="max-w-md mx-auto mt-6 p-6 space-y-6 bg-white shadow-xl border border-gray-200 rounded-xl" >
       {/* Payment Type Selection */}
-
-      <div>
+      
+      <div >
         <h1 className="text-lg font-semibold text-gray-800 mb-4">
           Choose Payment Method
         </h1>

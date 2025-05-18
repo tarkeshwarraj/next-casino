@@ -78,7 +78,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
           value={formData.card_holder_name}
           onChange={handleNameChange}
           required
-          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="text-black w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="John Doe"
         />
       </div>
@@ -101,7 +101,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
           value={formData.card_number}
           onChange={handleCardNumberChange}
           required
-          className="w-full border border-gray-300 rounded-lg p-2 pr-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="text-black w-full border border-gray-300 rounded-lg p-2 pr-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="1234 1234 1234 1234"
           inputMode="numeric"
           maxLength={16}
@@ -126,7 +126,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
             onChange={handleExpiryChange}
             maxLength={5} // MM/YY is 5 chars including slash
             required
-            className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-400 border-violet-300 placeholder-gray-400"
+            className="text-black w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-400 border-violet-300 placeholder-gray-400"
             placeholder="MM/YY"
             inputMode="numeric"
 
@@ -142,7 +142,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
             value={formData.cvv}
             onChange={handleChange}
             required
-            className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-400 border-violet-300 placeholder-gray-400"
+            className="text-black w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-400 border-violet-300 placeholder-gray-400"
             placeholder="123"
             maxLength={3}
           />
@@ -150,7 +150,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
       </div>
 
       {/* Save for future payments */}
-      <div className="flex items-center mt-2">
+      <div className="flex items-center mt-2 hidden">
         <input
           id="saveInfo"
           type="checkbox"
@@ -161,9 +161,9 @@ const CreditCardForm = ({ formData, handleChange }) => {
               target: { name: "save_info", value: e.target.checked },
             })
           }
-          className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
+          className="text-black h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
         />
-        <label htmlFor="saveInfo" className="ml-2 text-sm text-gray-600">
+        <label htmlFor="saveInfo" className="ml-2 text-sm text-gray-600 ">
           Save information for future payments
         </label>
       </div>
@@ -183,7 +183,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
               required
               type="number"
               min="10"
-              className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400"
+              className="text-black w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400"
               placeholder="Enter amount"
             />
           </div>

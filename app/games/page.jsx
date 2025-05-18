@@ -93,7 +93,7 @@ export default function GamesPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
               </div>
-              <div className="p-5 flex-1 flex flex-col justify-between">
+              <div className="p-4 flex-1 flex flex-col justify-between">
                 <h2 className="text-2xl font-bold mb-2 group-hover:underline">
                   {game.title}
                 </h2>

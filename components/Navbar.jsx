@@ -10,7 +10,7 @@ export default function Navbar() {
   useEffect(() => {
     const root = document.documentElement;
     if (isDarkMode) {
-      root.style.setProperty("--background", "#1a1f24");
+      root.style.setProperty("--background", "rgb(13, 27, 42)");
       root.style.setProperty("--foreground", "#ededed");
     } else {
       root.style.setProperty("--background", "#ffffff");
