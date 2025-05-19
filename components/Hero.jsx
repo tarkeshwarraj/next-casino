@@ -15,7 +15,7 @@ export default function hero() {
         rewards!
       </p>
       <a
-        href="#play"
+        href="/games"
         className="px-8 py-3 rounded-full font-semibold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300"
       >
         Start Playing
