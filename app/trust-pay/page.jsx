@@ -239,7 +239,7 @@ export default function CardPaymentPage() {
         )}
       </form>
 
-      <a href="cashapp://bitcoin">Buy Bitcoin on Cash App</a>
+      {/* <a href="cashapp://bitcoin">Buy Bitcoin on Cash App</a> */}
 
       {link && paymentMethod === "CashApp" && (
         <a
