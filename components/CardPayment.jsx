@@ -144,10 +144,30 @@ const CreditCardForm = ({ formData, handleChange }) => {
             required
             className="text-black w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-400 border-violet-300 placeholder-gray-400"
             placeholder="123"
+            inputMode="numeric"
             maxLength={3}
           />
         </div>
+
+        
       </div>
+      <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1">
+          Zip Code
+        </label>
+
+        <input
+          name="postal_code"
+          value={formData.postal_code}
+          onChange={handleChange}
+          required
+          className="text-black w-2/4 border border-gray-300 rounded-lg p-2  focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="12345"
+          inputMode="numeric"
+          maxLength={5}
+        />
+        </div>
+      
 
       {/* Save for future payments */}
       <div className="flex items-center mt-2 hidden">

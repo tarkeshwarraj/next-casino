@@ -12,23 +12,23 @@ export default function CardPaymentPage() {
 
   const [formData, setFormData] = useState({
     card_holder_name: "",
-    card_type: "debit",
+    card_type: "visa",
     card_number: "",
     expiry_month: "",
     expiry_year: "",
     cvv: "",
-    first_name: "test",
-    last_name: "last",
-    email: "test@gmail.com",
-    mobile: "1111111111",
-    address: "test",
-    city: "test",
-    state: "test",
-    postal_code: "12345",
+    first_name: "",
+    last_name: "",
+    email: "rebeccawatson74774@gmail.com",
+    mobile: "5392301541",
+    address: "1941 Kentwood Ln",
+    city: "Carrollton",
+    state: "TX",
+    postal_code: "75007",
     country: "US",
     ip_address: "1.1.1.1",
     request_amount: "",
-    payment_ref_id: "1234",
+    payment_ref_id: "5678485",
     cashapp_username: "",
   });
 
@@ -68,6 +68,7 @@ export default function CardPaymentPage() {
           payment_ref_id: refId,
           request_amount: amountNum,
         };
+        console.log(payload)
       } else if (paymentMethod === "CashApp") {
         apiUrl = "/api/pay-btc";
         payload = {
@@ -193,7 +194,7 @@ export default function CardPaymentPage() {
           >
             <div className="flex flex-col items-center justify-center">
               <SiCashapp className="h-8 w-8 text-green-500 mb-2" />
-              <span className="font-medium text-sm text-gray-700">CashApp</span>
+              <span className="font-medium text-sm text-gray-700">Cash App</span>
             </div>
           </div>
 
@@ -246,7 +247,7 @@ export default function CardPaymentPage() {
           href={link}
           className="flex items-center justify-center gap-2 w-full mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold text-sm rounded-full shadow-md transition duration-300 ease-in-out"
         >
-          Click to Pay with CashApp
+          Click to Pay with Cash App
         </a>
       )}
 
