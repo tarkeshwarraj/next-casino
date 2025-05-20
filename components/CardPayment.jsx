@@ -190,7 +190,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
 
       <div className="space-y-5">
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Amount
+            Amount (Min-3$)
           </label>
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 text-sm pointer-events-none">
@@ -202,7 +202,7 @@ const CreditCardForm = ({ formData, handleChange }) => {
               onChange={handleChange}
               required
               type="number"
-              min="10"
+              min="3"
               className="text-black w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 placeholder-gray-400"
               placeholder="Enter amount"
             />

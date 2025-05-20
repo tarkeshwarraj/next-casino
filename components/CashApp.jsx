@@ -20,7 +20,7 @@ const CashApp = ({formData, handleChange}) => {
 
       <div className="space-y-5 px-3">
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Amount
+            Amount (Min-1$)
           </label>
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 text-sm pointer-events-none">
