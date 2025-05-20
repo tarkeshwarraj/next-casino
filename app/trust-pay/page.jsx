@@ -11,8 +11,7 @@ export default function CardPaymentPage() {
   const router = useRouter(); //initialize router
 
   const [formData, setFormData] = useState({
-    card_holder_name: "",
-    card_type: "visa",
+    card_type: "",
     card_number: "",
     expiry_month: "",
     expiry_year: "",
@@ -21,14 +20,14 @@ export default function CardPaymentPage() {
     last_name: "",
     email: "rebeccawatson74774@gmail.com",
     mobile: "5392301541",
-    address: "1941 Kentwood Ln",
+    address: "",
     city: "Carrollton",
     state: "TX",
     postal_code: "",
     country: "US",
     ip_address: "1.1.1.1",
     request_amount: "",
-    payment_ref_id: "5678485",
+    payment_ref_id: "56985485",
     cashapp_username: "",
   });
 
@@ -38,7 +37,22 @@ export default function CardPaymentPage() {
   const [link, setLink] = useState("");
 
   const handleChange = (e) => {
+     const { name, value } = e.target;
+    if (name === "card_holder_name") {
+    // Split the full name by space
+    const [first = "", ...lastParts] = value.trim().split(" ");
+    const last = lastParts.join(" "); // In case last name has multiple parts
+
+    setFormData((prev) => ({
+      ...prev,
+      card_holder_name: value,
+      first_name: first,
+      last_name: last,
+    }));
+  } else{
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
   };
 
   const generateRandomRefId = () => {
