@@ -24,7 +24,7 @@ export default function CardPaymentPage() {
     address: "1941 Kentwood Ln",
     city: "Carrollton",
     state: "TX",
-    postal_code: "75007",
+    postal_code: "",
     country: "US",
     ip_address: "1.1.1.1",
     request_amount: "",
