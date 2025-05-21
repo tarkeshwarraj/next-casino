@@ -29,7 +29,7 @@ const TutorialSection = () => {
         >
           <h3 className="text-lg font-semibold mb-2">1. How to Buy Bitcoin</h3>
           <img
-            src="/images/buy-bitcoin-thumb.jpg"
+            src="/images/buy_bitcoin.png"
             alt="How to Buy Bitcoin"
             className="rounded-lg"
           />
@@ -42,7 +42,7 @@ const TutorialSection = () => {
         >
           <h3 className="text-lg font-semibold mb-2">2. How to Pay via Bitcoin</h3>
           <img
-            src="/images/pay-bitcoin-thumb.jpg"
+            src="/images/pay_cash.png"
             alt="How to Pay via Bitcoin"
             className="rounded-lg"
           />
