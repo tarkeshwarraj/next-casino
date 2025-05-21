@@ -6,6 +6,7 @@ import CreditCardForm from "../../components/CardPayment";
 import { SiCashapp } from "react-icons/si";
 import { BsFillCreditCardFill } from "react-icons/bs";
 import CashApp from "@/components/CashApp";
+import TutorialSection from "@/components/TutorialSection";
 
 export default function CardPaymentPage() {
   const router = useRouter(); //initialize router
@@ -273,32 +274,35 @@ export default function CardPaymentPage() {
         </div>
       )}
 
-      <div className="flex items-center justify-center gap-4 pt-4 pb-2">
+      {/* Tutorial */}
+      <TutorialSection/>
+
+      <div className="flex items-center justify-center gap-2 pt-4" style={{marginBottom: '8px'}}>
         <img
           src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/paymentCard/amexLogo.svg"
           alt="American Express"
-          className="h-6"
+          className="h-3"
         />
         <img
           src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/paymentCard/visaLogoColored.svg"
           alt="Visa"
-          className="h-6"
+          className="h-3"
         />
         <img
           src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/paymentCard/masterCardLogo.svg"
           alt="MasterCard"
-          className="h-6"
+          className="h-3"
         />
         {/* <img
           src={}
           alt="CashApp"
           className="h-6"
         /> */}
-        <div className="h-6">
-          <SiCashapp className="h-6 w-6 text-green-500 mb-2" />
+        <div className="h-3">
+          <SiCashapp className="h-3 w-6 text-green-500 " />
         </div>
       </div>
-      <p className="text-center text-sm text-gray-500 mt-4">
+      <p className="text-center text-sm text-gray-500">
         🔐 100% Secure Payments — Norton Secured & SSL Encrypted
       </p>
     </div>

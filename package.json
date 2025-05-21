@@ -14,6 +14,7 @@
     "tailwind-init": "tailwindcss init -f"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "cheerio": "^1.0.0",

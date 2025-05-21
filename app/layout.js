@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import { connectAndLog } from "@/lib/startup";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Run MongoDB connection on server start
 if (typeof window === "undefined") {
@@ -21,6 +22,23 @@ export default function RootLayout({ children }) {
         <div className="app w-5/6 md:w-4/5">
           {children}
           <Footer />
+        </div>
+        {/* Floating Support Icons */}
+        <div className="support-icons">
+          <a
+            href="https://t.me/voltexhere"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="/images/icon_telegram.png" alt="Telegram" className="icon-img" />
+          </a>
+          <a
+            href="https://m.me/karen.lemon.2025"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="/images/icon_messenger.png" alt="Messenger" className="icon-img" />
+          </a>
         </div>
       </body>
     </html>

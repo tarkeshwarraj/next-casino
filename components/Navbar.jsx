@@ -36,10 +36,11 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
+
         <ul
           className="hidden md:flex items-center space-x-8 "
           style={{ color: "var(--foreground)" }}
-        >
+          >
           <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
             <Link href="/">Home</Link>
           </li>
@@ -50,6 +51,7 @@ export default function Navbar() {
             <Link href="/trust-pay">Load Game</Link>
           </li>
         </ul>
+
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center space-x-4">
