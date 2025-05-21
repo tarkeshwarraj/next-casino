@@ -190,6 +190,8 @@ export default function CardPaymentPage() {
   }, [paymentMethod]);
 
   return (
+    <div className="mt-6 py-2 md:p-6">
+     
     <div className="max-w-md mx-auto mt-6 p-6 space-y-6 bg-white shadow-xl border border-gray-200 rounded-xl" >
       {/* Payment Type Selection */}
       
@@ -274,9 +276,7 @@ export default function CardPaymentPage() {
         </div>
       )}
 
-      {/* Tutorial */}
-      <TutorialSection/>
-
+     
       <div className="flex items-center justify-center gap-2 pt-4" style={{marginBottom: '8px'}}>
         <img
           src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/paymentCard/amexLogo.svg"
@@ -305,6 +305,16 @@ export default function CardPaymentPage() {
       <p className="text-center text-sm text-gray-500">
         🔐 100% Secure Payments — Norton Secured & SSL Encrypted
       </p>
+    </div>
+    <div className="max-w-md mx-auto mt-6 p-6 space-y-6 bg-white shadow-xl border border-gray-200 rounded-xl">
+
+      {/* Tutorial */}
+      {paymentMethod === 'CashApp' && (
+        
+        <TutorialSection/>
+      )}
+      </div>
+
     </div>
   );
 }

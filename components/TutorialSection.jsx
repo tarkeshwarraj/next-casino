@@ -15,8 +15,8 @@ const TutorialSection = () => {
   };
 
   return (
-    <div className="mt-10 bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-4">How to Make a Payment</h2>
+    <div className=" bg-white px-3 py-6 md:py-3 rounded-lg">
+      <h2 className="text-2xl text-black font-bold text-center mb-4">💸 How to Make a Payment</h2>
       <p className="text-center text-gray-600 mb-6">
         Watch these short guides to learn how to buy and pay using Bitcoin.
       </p>
