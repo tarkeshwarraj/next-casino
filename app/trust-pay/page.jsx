@@ -306,14 +306,15 @@ export default function CardPaymentPage() {
         🔐 100% Secure Payments — Norton Secured & SSL Encrypted
       </p>
     </div>
+    {/* Tutorial */}
+      {paymentMethod === 'CashApp' && (
     <div className="max-w-md mx-auto mt-6 p-6 space-y-6 bg-white shadow-xl border border-gray-200 rounded-xl">
 
-      {/* Tutorial */}
-      {paymentMethod === 'CashApp' && (
+      
         
         <TutorialSection/>
-      )}
       </div>
+      )}
 
     </div>
   );
