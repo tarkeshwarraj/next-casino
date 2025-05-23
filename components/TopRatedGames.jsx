@@ -11,36 +11,36 @@ const games = [
     id: 1,
     title: 'The Witcher 3',
     rating: 9.5,
-    image: 'https://via.placeholder.com/300x150?text=Witcher+3',
+    image: '/images/cardImages/2035.png',
   },
   {
     id: 2,
     title: 'Red Dead Redemption 2',
     rating: 9.8,
-    image: 'https://via.placeholder.com/300x150?text=RDR2',
+    image: '/images/cardImages/2039.png',
   },
   {
     id: 3,
     title: 'God of War',
     rating: 9.7,
-    image: 'https://via.placeholder.com/300x150?text=God+of+War',
+    image: '/images/cardImages/2103.png',
   },
   {
     id: 4,
     title: 'Elden Ring',
     rating: 9.6,
-    image: 'https://via.placeholder.com/300x150?text=Elden+Ring',
+    image: '/images/cardImages/2109.png',
   },
   {
     id: 5,
     title: 'Elden Ring',
     rating: 9.6,
-    image: 'https://via.placeholder.com/300x150?text=Elden+Ring',
+    image: '/images/cardImages/2133.png',
   },{
     id: 6,
     title: 'Elden Ring',
     rating: 9.6,
-    image: 'https://via.placeholder.com/300x150?text=Elden+Ring',
+    image: '/images/cardImages/2575.png',
   }
 ];
 
@@ -64,12 +64,13 @@ const TopRatedGames = () => {
       >
         {games.map((game) => (
           <SwiperSlide key={game.id}>
-            <div className="rounded-xl shadow-md overflow-hidden bg-white hover:scale-105 transition-transform duration-300">
-              <img src={game.image} alt={game.title} className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{game.title}</h3>
-                <p className="text-sm text-gray-600">Rating: {game.rating}</p>
-              </div>
+           <div className="relative rounded-xl overflow-hidden shadow-lg bg-gray-900 group transition-transform duration-300 hover:scale-105">
+              <img
+                src={game.image}
+                alt={game.title}
+                className="w-full h-60 md:h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
             </div>
           </SwiperSlide>
         ))}
