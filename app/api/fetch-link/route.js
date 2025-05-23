@@ -12,8 +12,6 @@ export async function GET(req) {
       });
     }
 
-    const TOKEN = 'YOUR_BROWSERLESS_TOKEN'; // 🔐 Replace this with your actual token
-
     const browser = await chromium.connect(
       `wss://production-sfo.browserless.io/chromium/playwright?token=2SKFGScKsveYbjp48c8f09230dd1a25c554690ed0b5cfa1d1`
     );
@@ -25,12 +23,19 @@ export async function GET(req) {
 
     // #PayInWallet element का wait और href निकालना
     await page.waitForSelector('#PayInWallet', { timeout: 10000 });
+    await page.waitForSelector('.qr-container', { timeout: 10000 });
 
+    // Extract the href from #PayInWallet
     const payLink = await page.$eval('#PayInWallet', el => el.getAttribute('href'));
+
+    const qrContainerHtml = await page.$eval('.qr-container', el => el.outerHTML);
+    const rawQrValue = await page.$eval('.qr-container', el => el.getAttribute('data-qr-value'));
+    const qrValue = rawQrValue?.replace(/^lightning:/, ''); // Cleaned value
+
 
     await browser.close();
 
-    return new Response(JSON.stringify({ payLink }), {
+    return new Response(JSON.stringify({ payLink, qrValue, qrContainerHtml }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

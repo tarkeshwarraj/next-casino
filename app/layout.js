@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
           <Navbar />
-        <div className="app w-5/6 md:w-4/5">
+        <div className="app  md:w-4/5">
           {children}
           <Footer />
         </div>

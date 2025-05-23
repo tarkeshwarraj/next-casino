@@ -21,7 +21,7 @@ const TutorialSection = () => {
         Watch these short guides to learn how to buy and pay using Bitcoin.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1">
         {/* Video 1 */}
         <div
           className="cursor-pointer bg-gray-100 rounded-lg p-4 hover:shadow-lg transition"
@@ -35,18 +35,17 @@ const TutorialSection = () => {
           />
         </div>
 
-        {/* Video 2 */}
-        <div
+        {/* Video 2  md:grid-cols-2 gap-6*/}
+        {/* <div
           className="cursor-pointer bg-gray-100 rounded-lg p-4 hover:shadow-lg transition"
           onClick={() => openModal("/videos/how-to-pay-bitcoin.mp4")}
         >
-          {/* <h3 className="text-lg font-semibold mb-2">2. How to Pay via Bitcoin</h3> */}
           <img
             src="/images/pay_cash.png"
             alt="How to Pay via Bitcoin"
             className="rounded-lg"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Modal */}
