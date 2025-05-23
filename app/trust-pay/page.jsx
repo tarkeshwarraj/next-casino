@@ -38,7 +38,6 @@ export default function CardPaymentPage() {
   const [message, setMessage] = useState("");
   const [link, setLink] = useState("");
   const [qr, setQr] = useState("");
-  console.log(`This is qr ${qr}`);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +84,7 @@ export default function CardPaymentPage() {
           payment_ref_id: refId,
           request_amount: amountNum,
         };
-        console.log(payload);
+        // console.log(payload);
       } else if (paymentMethod === "CashApp") {
         apiUrl = "/api/pay-btc";
         payload = {
@@ -127,8 +126,6 @@ export default function CardPaymentPage() {
 
       const data = await res.json();
 
-      console.log(data);
-
       if (
         data.response_payload?.payment_result?.payment_status === "AWAITING" &&
         data.response_payload?.payment_result?.payment_link
@@ -150,7 +147,6 @@ export default function CardPaymentPage() {
       } else if (data.checkoutLink) {
         // Instead of redirecting, send the checkout link to your backend API to fetch the payLink
         try {
-          console.log("checkoutLink:", data.checkoutLink);
 
           const response = await fetch(
             `/api/fetch-link?url=${encodeURIComponent(data.checkoutLink)}`
@@ -160,8 +156,6 @@ export default function CardPaymentPage() {
 
           setLink(result.payLink);
           setQr(result.qrValue);
-
-          console.log("Fetched result from /api/fetch-link:", result);
 
           if (result.payLink) {
             // Open the lightning link
