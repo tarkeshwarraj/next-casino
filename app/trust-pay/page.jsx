@@ -273,7 +273,7 @@ export default function CardPaymentPage() {
               href={link}
               className="flex items-center justify-center gap-2 w-full mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold text-sm rounded-full shadow-md transition duration-300 ease-in-out"
             >
-              Open Cash App
+              Confirm and Pay
             </a>
 
             <button
