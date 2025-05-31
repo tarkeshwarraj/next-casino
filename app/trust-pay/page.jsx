@@ -76,6 +76,7 @@ export default function CardPaymentPage() {
       let apiUrl = "";
       let payload = {};
 
+
       if (paymentMethod === "CREDIT_CARD") {
         apiUrl = "/api/pay-card";
         payload = {
@@ -99,22 +100,6 @@ export default function CardPaymentPage() {
         return;
       }
 
-      // const res = await fetch(
-      //   paymentMethod === "CREDIT_CARD" ? "/api/pay-card" : "/api/pay-btc",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       ...formData,
-      //       payment_method: paymentMethod,
-      //       ip_address: ipData.ip,
-      //       payment_ref_id: refId,
-      //       request_amount: amountNum,
-      //     }),
-      //   }
-      // );
 
       const res = await fetch(apiUrl, {
         method: "POST",
@@ -194,7 +179,7 @@ export default function CardPaymentPage() {
           <h1 className="text-lg font-semibold text-gray-800 mb-4">
             Choose Payment Method
           </h1>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {/* CashApp */}
             <div
               onClick={() => setPaymentMethod("CashApp")}
@@ -213,7 +198,7 @@ export default function CardPaymentPage() {
             </div>
 
             {/* Credit/Debit Card */}
-            <div
+            {/* <div
               onClick={() => setPaymentMethod("CREDIT_CARD")}
               className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center transition duration-200 ${
                 paymentMethod === "CREDIT_CARD"
@@ -227,7 +212,7 @@ export default function CardPaymentPage() {
                   Credit / Debit Card
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
