@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import { connectAndLog } from "@/lib/startup";
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Run MongoDB connection on server start
 if (typeof window === "undefined") {
@@ -17,28 +17,41 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="">
+        <div className="bg-gradient-to-b from-[#0A0F2C] to-[#041230] text-white min-h-screen font-sans flex flex-col items-center">
+          <div className="w-full">
+
           <Navbar />
-        <div className="app  md:w-4/5">
-          {children}
-          <Footer />
-        </div>
-        {/* Floating Support Icons */}
-        <div className="support-icons">
-          <a
-            href="https://t.me/voltexhere"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/images/icon_telegram.png" alt="Telegram" className="icon-img" />
-          </a>
-          <a
-            href="https://m.me/karen.lemon.2025"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/images/icon_messenger.png" alt="Messenger" className="icon-img" />
-          </a>
+          <div className="app">
+            {children}
+            <Footer />
+          </div>
+          </div>
+          {/* Floating Support Icons */}
+          <div className="support-icons">
+            <a
+              href="https://t.me/voltexhere"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/icon_telegram.png"
+                alt="Telegram"
+                className="icon-img"
+              />
+            </a>
+            <a
+              href="https://m.me/karen.lemon.2025"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/icon_messenger.png"
+                alt="Messenger"
+                className="icon-img"
+              />
+            </a>
+          </div>
         </div>
       </body>
     </html>

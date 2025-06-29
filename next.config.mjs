@@ -2,7 +2,7 @@
 
 const nextConfig = {
   images: {
-    domains: ["media4.giphy.com", "media0.giphy.com"],
+    domains: ["media4.giphy.com", "media0.giphy.com","images.unsplash.com"],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {

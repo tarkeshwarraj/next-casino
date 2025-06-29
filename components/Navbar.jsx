@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -18,176 +19,49 @@ export default function Navbar() {
     }
   }, [isDarkMode]);
 
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
   return (
-    <div className="relative text-sm text-white w-full">
-      <nav
-        className="relative h-[70px] flex items-center justify-between px-6 bg-white text-gray-900 shadow-sm z-40"
-        style={{
-          backgroundColor: "var(--background)",
-          color: "var(--foreground)",
-        }}
-      >
-        <Link href="#">
-          <img
-            className="h-9"
-            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjRzMG53NmNkZXhkdzVtYjYzYXdtNTZuOWx3ZGZmZmtpcnlvNTJtNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PhdC5X5qr6mzK/giphy.gif"
-            alt="Logo"
-          />
-        </Link>
+    <div className="bg-[#09102b]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+        <header className="flex justify-between items-center py-6">
+          <h1 className="text-xl font-bold text-yellow-400">Royal Casino</h1>
 
-        {/* Desktop Links */}
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex space-x-6 text-sm">
+            <Link href="#" className="hover:text-yellow-300">Games</Link>
+            <Link href="#" className="hover:text-yellow-300">Promotions</Link>
+            <Link href="#" className="hover:text-yellow-300">VIP</Link>
+            <Link href="#" className="hover:text-yellow-300">Support</Link>
+          </nav>
 
-        <ul
-          className="hidden md:flex items-center space-x-8 "
-          style={{ color: "var(--foreground)" }}
-          >
-          <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
-            <Link href="/">Home</Link>
-          </li>
-          <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
-            <Link href="/games">Games</Link>
-          </li>
-          <li className="px-6 py-2 rounded-full border border-gray-300 active:scale-95">
-            <Link href="/trust-pay">Load Game</Link>
-          </li>
-        </ul>
+          {/* Auth Buttons (Desktop) */}
+          <div className="hidden md:flex space-x-3">
+            <button className="bg-yellow-400 px-4 py-1 rounded text-black font-semibold">Login</button>
+            <button className="border border-yellow-400 px-4 py-1 rounded text-yellow-400 font-semibold">Sign Up</button>
+          </div>
 
-
-        {/* Desktop Buttons */}
-        <div className="hidden md:flex items-center space-x-4">
-          <button
-            className=" hover:bg-gray-50 border border-gray-300 px-6 py-2 rounded-full active:scale-95 transition-all"
-            style={{ color: "var(--foreground)" }}
-          >
-            Get started
+          {/* Mobile Menu Icon */}
+          <button onClick={toggleMenu} className="md:hidden text-yellow-400 text-xl">
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
+        </header>
 
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 ${
-              isDarkMode
-                ? "bg-white text-black hover:bg-gray-200"
-                : "bg-black text-white hover:bg-gray-800"
-            }`}
-          >
-            {isDarkMode ? "☀️" : "🌙"}
-          </button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 rounded-md hover:bg-gray-100 active:scale-90 transition"
-          aria-label="Toggle Menu"
-        >
-          {isMenuOpen ? (
-            // X icon
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            // Hamburger icon
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
-              fill="currentColor"
-            >
-              <path
-                d="M3 7h24M3 14h24M3 21h24"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-            </svg>
-          )}
-        </button>
-      </nav>
-
-      {/* Small Floating Mobile Menu */}
-      {/* Container fixed top-right below navbar, small box with smooth slide */}
-      {/* Mobile menu with smooth transition */}
-      <div
-        className={`fixed top-[70px] right-4 w-60 bg-white shadow-lg rounded-lg p-6 overflow-hidden transition-all duration-300 ease-in-out
-    ${
-      isMenuOpen
-        ? "max-h-[400px] opacity-100 translate-x-0"
-        : "max-h-0 opacity-0 translate-x-10 pointer-events-none"
-    }`}
-        style={{
-          backgroundColor: "var(--background)",
-          color: "var(--foreground)",
-          zIndex: 50
-        }}
-      >
-        <ul
-          onClick={() => {
-            setIsMenuOpen(false);
-          }}
-          className="flex flex-col space-y-4 text-lg text-black"
-          style={{ color: "var(--foreground)" }}
-        >
-          <li className="active:scale-95">
-            <Link
-              href="/"
-              className="text-sm px-6 py-2 rounded-full border border-gray-300"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active:scale-95">
-            <Link
-              href="/games"
-              className="text-sm px-6 py-2 rounded-full border border-gray-300"
-            >
-              Games
-            </Link>
-          </li>
-          <li className="active:scale-95">
-            <Link
-              href="/trust-pay"
-              className="text-sm px-6 py-2 rounded-full border border-gray-300 "
-            >
-              Load Game
-            </Link>
-          </li>
-        </ul>
-
-        <button
-          onClick={() => {
-            setIsMenuOpen(false);
-          }}
-          type="button"
-          className=" text-gray-600 border border-gray-300 mt-6 text-sm hover:bg-gray-50 active:scale-95 transition-all w-full h-11 rounded-full"
-          style={{ color: "var(--foreground)" }}
-        >
-          Get started
-        </button>
-
-        <button
-          onClick={() => {
-            setIsDarkMode(!isDarkMode);
-            setIsMenuOpen(false);
-          }}
-          className={`gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 w-full mt-4 active:scale-95 ${
-            isDarkMode
-              ? "bg-white text-black hover:bg-gray-200 border border-gray-300"
-              : "bg-black text-white hover:bg-gray-800"
-          }`}
-        >
-          {isDarkMode ? "☀️" : "🌙"}
-        </button>
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden text-sm space-y-4 pb-4">
+            <nav className="flex flex-col gap-2">
+              <Link href="#" className="hover:text-yellow-300">Games</Link>
+              <Link href="#" className="hover:text-yellow-300">Promotions</Link>
+              <Link href="#" className="hover:text-yellow-300">VIP</Link>
+              <Link href="#" className="hover:text-yellow-300">Support</Link>
+            </nav>
+            <div className="flex gap-2 pt-2">
+              <button className="bg-yellow-400 w-full py-2 rounded text-black font-semibold">Login</button>
+              <button className="border border-yellow-400 w-full py-2 rounded text-yellow-400 font-semibold">Sign Up</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
