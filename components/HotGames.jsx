@@ -40,27 +40,27 @@ const HotGames = () => {
             {
               name: 'Mega Fortune',
               reward: '$2.4M Jackpot',
-              image: '/images/hotGames/1000.gif'
+              image: '/images/hotgames/1000.gif'
             },
             {
               name: 'Royal Blackjack',
               reward: '96.12% RTP',
-              image: '/images/hotGames/casi.gif',
+              image: '/images/hotgames/casi.gif',
             },
             {
               name: 'Lucky Dice',
               reward: 'x1000',
-              image: '/images/hotGames/giphy.gif',
+              image: '/images/hotgames/giphy.gif',
             },
             {
               name: 'Diamond Rush',
               reward: 'Free Spins',
-              image: '/images/hotGames/jackpot.gif',
+              image: '/images/hotgames/jackpot.gif',
             },
             {
               name: 'Circus Madness',
               reward: '+50 Wilds',
-              image: '/images/hotGames/megawin.gif',
+              image: '/images/hotgames/megawin.gif',
             },
           ].map((game, i) => (
             <div key={i} className="w-72 sm:w-56 bg-[#10194b] p-4 rounded-xl shadow-md">
