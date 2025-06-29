@@ -1,4 +1,6 @@
-// app/games/page.jsx
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 export default function GamesPage() {
@@ -52,7 +54,16 @@ export default function GamesPage() {
       image: "/images/milki_way.png",
       link: "https://milkywayapp.xyz/",
     },
+    {
+      id: 8,
+      title: "Fire Kirin",
+      description: "Casual relaxing fun.",
+      image: "/images/milki_way.png",
+      link: "http://play.firekirin.xyz",
+    },
   ];
+
+  const [selectedGame, setSelectedGame] = useState(null);
 
   return (
     <main
@@ -62,28 +73,19 @@ export default function GamesPage() {
         color: "var(--foreground)",
       }}
     >
-      <h1
-        className="text-4xl font-bold mb-10 text-center"
-        style={{ color: "var(--foreground)" }}
-      >
-        🎮 Our Games
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <h1 className="text-4xl font-bold mb-10 text-center">🎮 Our Games</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
         {games.map((game) => (
           <div
             key={game.id}
-            className=" rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.03] transition duration-300 ease-in-out border border-gray-300 overflow-hidden flex flex-col"
+            className="rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.03] transition duration-300 ease-in-out border border-gray-300 overflow-hidden flex flex-col"
             style={{
               backgroundColor: "var(--background)",
               color: "var(--foreground)",
             }}
           >
-            <a
-              href={game.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group"
-            >
+            <div className="group">
               <div className="relative w-full h-64 overflow-hidden">
                 <Image
                   src={game.image}
@@ -98,14 +100,28 @@ export default function GamesPage() {
                   {game.title}
                 </h2>
                 <p className="text-sm text-gray-400 mb-4">{game.description}</p>
-                <button className="mt-auto bg-blue-400 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition">
+                <button
+                  className="mt-auto bg-blue-400 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition"
+                  onClick={() => setSelectedGame(game.link)}
+                >
                   Play Now
                 </button>
               </div>
-            </a>
+            </div>
           </div>
         ))}
       </div>
+
+      {selectedGame && (
+        <div className="w-full h-[700px] border-2 border-gray-300 rounded-xl overflow-hidden">
+          <iframe
+            src={selectedGame}
+            title="Game Frame"
+            className="w-full h-full"
+            allowFullScreen
+          />
+        </div>
+      )}
     </main>
   );
 }
