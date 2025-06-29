@@ -52,7 +52,7 @@ export default function GamesPage() {
       title: "Milki Way",
       description: "Casual relaxing fun.",
       image: "/images/milki_way.png",
-      link: "https://milkywayapp.xyz/",
+      link: "http://milkywayapp.xyz/",
     },
     {
       id: 8,
@@ -64,6 +64,12 @@ export default function GamesPage() {
   ];
 
   const [selectedGame, setSelectedGame] = useState(null);
+
+  // Proxy URL encode to avoid problems with special characters
+  const getIframeSrc = (url) => {
+    const encoded = encodeURIComponent(url);
+    return `/api/proxy?url=${encoded}`;
+  };
 
   return (
     <main
@@ -115,7 +121,7 @@ export default function GamesPage() {
       {selectedGame && (
         <div className="w-full h-[700px] border-2 border-gray-300 rounded-xl overflow-hidden">
           <iframe
-            src={selectedGame}
+            src={getIframeSrc(selectedGame)}
             title="Game Frame"
             className="w-full h-full"
             allowFullScreen
