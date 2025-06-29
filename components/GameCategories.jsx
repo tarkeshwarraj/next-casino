@@ -37,12 +37,13 @@ const GameCategories = () => {
         <h3 className="text-2xl font-bold mb-8">Choose Your <span className="text-yellow-400">Game</span></h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
           {[
-            { title: 'Slots', color: 'bg-red-500', desc: '500+ Premium Slot Games' },
-            { title: 'Table Games', color: 'bg-green-500', desc: 'Blackjack, Poker, Baccarat' },
-            { title: 'Live Casino', color: 'bg-purple-600', desc: 'Real Dealers, Real Time' },
-            { title: 'Sports', color: 'bg-blue-500', desc: 'Live Sports Betting' },
-          ].map(({ title, color, desc }) => (
+            { title: 'Slots', color: 'bg-red-500', desc: '500+ Premium Slot Games', icon: '🎰' },
+            { title: 'Table Games', color: 'bg-green-500', desc: 'Blackjack, Poker, Baccarat', icon: '🃏' },
+            { title: 'Live Casino', color: 'bg-purple-600', desc: 'Real Dealers, Real Time', icon: '🎲' },
+            { title: 'Sports', color: 'bg-blue-500', desc: 'Live Sports Betting', icon: '⚽️' },
+          ].map(({ title, color, desc, icon }) => (
             <div key={title} className={`p-6 rounded-xl text-white ${color} shadow-md`}>
+              <p className="text-4xl mb-2">{icon}</p>
               <h4 className="text-lg font-bold mb-1">{title}</h4>
               <p className="text-sm mb-2">{desc}</p>
               <button className="bg-white text-black px-4 py-1 rounded font-semibold">

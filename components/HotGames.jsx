@@ -3,6 +3,7 @@ import React from 'react'
 const HotGames = () => {
   return (
     <div className="relative overflow-hidden">
+      <div className="max-w-7xl mx-auto">
       {/* Floating Icons */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <span
@@ -62,8 +63,8 @@ const HotGames = () => {
               image: '/images/hotGames/megawin.gif',
             },
           ].map((game, i) => (
-            <div key={i} className="w-48 bg-[#10194b] p-4 rounded-xl shadow-md">
-              <div className="h-24 w-full rounded mb-2 overflow-hidden">
+            <div key={i} className="w-72 sm:w-56 bg-[#10194b] p-4 rounded-xl shadow-md">
+              <div className="h-40 w-full rounded mb-2 overflow-hidden">
                 {game.image && (
                   <img
                     src={game.image}
@@ -78,6 +79,7 @@ const HotGames = () => {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 };
