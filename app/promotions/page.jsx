@@ -22,7 +22,7 @@ export default function RewardsHubPage() {
     if (startIndex + 8 < rewardDays.length) setStartIndex(startIndex + 1);
   };
   return (
-    <div className="bg-[#130c33] py-10 text-white min-h-screen">
+    <div className="bg-[#130c33] md:py-10 text-white min-h-screen">
 
       <section className="max-w-7xl mx-auto mt-10 bg-[#1a103b] rounded-xl p-6 shadow-lg text-center relative">
         <h2 className="text-2xl font-bold mb-2 text-white animate-bounce">🎯 DAILY LOGIN REWARDS</h2>

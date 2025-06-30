@@ -15,7 +15,10 @@ export default function Navbar() {
         <header className="flex justify-between items-center py-6">
           <h1
             className="text-xl font-bold text-[#FFD700] cursor-pointer hover:text-yellow-400 transition-colors duration-200"
-            onClick={() => router.push("/")}
+            onClick={() => {
+              router.push("/"); 
+              setIsMenuOpen(false);
+            }}
           >
             Royal Casino
           </h1>
