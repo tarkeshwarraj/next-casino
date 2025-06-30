@@ -1,6 +1,6 @@
 export default function UserProfile() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-700 to-blue-800 text-white font-sans p-6">
+    <div className="min-h-screen bg-gradient-to-r from-[#1a103d] via-[#2d0c54] to-[#0f0d2e] text-white font-sans p-6">
       <h1 className="text-center text-2xl font-bold mb-2">User Profile</h1>
       <p className="text-center text-gray-300 mb-6">Manage your casino account and gaming preferences</p>
 

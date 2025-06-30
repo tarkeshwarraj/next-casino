@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
           </div>
           </div>
           {/* Floating Support Icons */}
-          <div className="support-icons">
+          {/* <div className="support-icons">
             <a
               href="https://t.me/voltexhere"
               target="_blank"
@@ -50,7 +50,7 @@ export default function RootLayout({ children }) {
                 className="icon-img"
               />
             </a>
-          </div>
+          </div> */}
         </div>
       </body>
     </html>

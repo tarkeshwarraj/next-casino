@@ -1,176 +1,113 @@
-"use client";
-
-import { useState } from "react";
-import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
-import {useRouter} from 'next/navigation';
-import axios from "axios";
+'use client';
+import React, { useState, useEffect} from 'react';
+import { FaGoogle, FaFacebookF, FaLock, FaGift } from 'react-icons/fa';
+import {useSearchParams} from 'next/navigation';
 
 export default function LoginPage() {
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const router = useRouter();
+  const searchParams = useSearchParams()
+  const [isRegistering, setIsRegistering] = useState(false)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage(""); // clear previous errors
-    setLoading(true);
-
-    if (isRegistering) {
-      if (password !== confirmPassword) {
-        setErrorMessage("Passwords do not match!");
-        setLoading(false);
-        return;
-      }
-      try {
-
-        const response = await axios.post("/api/auth/register", { email, password });
-        // console.log("Registration success:", response.data);
-
-        //Automatically Login after registration
-        // console.log("Auto login success:", response.data.token);
-        localStorage.setItem('token', response.data.token);
-
-        //Redirect
-        router.push('/dashboard');
-
-      } catch (error) {
-        console.error("Registration error:", error);
-        setErrorMessage(error.response?.data?.error || "Registration failed. Please try again.");
-      }
-    } else {
-      try {
-        const response = await axios.post("/api/auth/login", { email, password });
-        console.log("Login success:", response.data);
-        // Example: Store token if backend sends it
-        localStorage.setItem('token', response.data.token);
-        //Optional : Redirect to dashboard
-        window.location.href = '/dashboard';
-        alert("Login successful!");
-      } catch (error) {
-        console.error("Login error:", error);
-        setErrorMessage(error.response?.data?.error || "Invalid credentials. Please try again.");
-      }
+  useEffect(() => {
+    const mode = searchParams.get('mode')
+    if (mode === 'signup') {
+      setIsRegistering(true)
     }
-
-    setLoading(false);
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-  };
-
+  }, [searchParams])
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <div
-        className="w-full max-w-md rounded-2xl shadow-lg p-8"
-        style={{
-          background: "var(--background)",
-          color: "var(--foreground)",
-          border: "1px solid #9b9494",
-        }}
-      >
-        <h2 className="text-3xl font-bold text-center mb-6">
-          {isRegistering ? "Create Account" : "Welcome Back"}
+    <div className="px-4 md:px-0 relative min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0c143a] to-[#1a2b87] text-white overflow-hidden">
+      
+      {/* Floating Icons */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <span className="absolute top-10 left-10 text-3xl opacity-10 animate-float">🎰</span>
+        <span className="absolute top-20 right-12 text-2xl opacity-10 animate-float2">🎲</span>
+        <span className="absolute bottom-16 left-20 text-2xl opacity-10 animate-float">💎</span>
+        <span className="absolute bottom-10 right-16 text-3xl opacity-10 animate-float2">👑</span>
+      </div>
+
+      {/* Login/Register Card */}
+      <div className="z-10 w-full max-w-md bg-[#1c2654]/50 backdrop-blur-md p-10 rounded-3xl border border-purple-500/30 ring-2 ring-purple-400/20 shadow-2xl animate-glow text-white">
+        <h1 className="text-center text-3xl font-bold mb-2 text-yellow-400">👑 Royal Casino</h1>
+        <p className="text-center text-gray-300 mb-6 text-sm">
+          {isRegistering ? "Create your free account" : "Welcome back to luxury gaming"}
+        </p>
+
+        <h2 className="text-white text-lg font-semibold mb-4">
+          {isRegistering ? "Register Your Account" : "Sign In to Your Account"}
         </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email */}
-          <div className="relative">
-            <FiMail className="absolute top-5 left-3 text-gray-400 dark:text-gray-500" size={18} />
+        <div className="space-y-5">
+          {/* Email Field */}
+          <div>
+            <label className="block text-sm mb-1">Email Address</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              id="email"
-              placeholder="Email address"
-              className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
+              placeholder="📧 Enter your email"
+              className="w-full px-4 py-2 rounded-full bg-[#2c3866] text-white placeholder-gray-400 border border-[#3f4c7a] focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
-            <label htmlFor="email" className="absolute left-10 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
-              Email address
-            </label>
           </div>
 
-          {/* Password */}
-          <div className="relative">
-            <FiLock className="absolute top-5 left-3 text-gray-400 dark:text-gray-500" size={18} />
+          {/* Password Field */}
+          <div>
+            <label className="block text-sm mb-1">Password</label>
             <input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              id="password"
-              placeholder="Password"
-              className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
+              type="password"
+              placeholder="🔒 Enter your password"
+              className="w-full px-4 py-2 rounded-full bg-[#2c3866] text-white placeholder-gray-400 border border-[#3f4c7a] focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
-            <label htmlFor="password" className="absolute left-10 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
-              Password
-            </label>
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-5 right-3 text-gray-400 dark:text-gray-500"
-            >
-              {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-            </button>
           </div>
 
-          {/* Confirm Password (Only when registering) */}
+          {/* Confirm Password if Registering */}
           {isRegistering && (
-            <div className="relative">
-              <FiLock className="absolute top-5 left-3 text-gray-400 dark:text-gray-500" size={18} />
+            <div>
+              <label className="block text-sm mb-1">Confirm Password</label>
               <input
-                type={showConfirmPassword ? "text" : "password"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                id="confirmPassword"
-                placeholder="Confirm Password"
-                className="peer w-full rounded-lg border border-gray-300 bg-transparent pl-10 pt-5 pb-2 text-sm placeholder-transparent focus:border-purple-500 focus:outline-none focus:ring-0"
+                type="password"
+                placeholder="🔒 Confirm your password"
+                className="w-full px-4 py-2 rounded-full bg-[#2c3866] text-white placeholder-gray-400 border border-[#3f4c7a] focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
-              <label htmlFor="confirmPassword" className="absolute left-10 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
-                Confirm Password
-              </label>
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute top-5 right-3 text-gray-400 dark:text-gray-500"
-              >
-                {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-              </button>
             </div>
           )}
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 rounded-lg font-bold hover:opacity-90 transition-all disabled:opacity-50"
-          >
-            {loading ? "Processing..." : isRegistering ? "Register" : "Login"}
+          <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 rounded-full font-bold text-black shadow-lg hover:shadow-yellow-500/40 hover:scale-105 transition-transform">
+            {isRegistering ? "🎯 Sign Up & Play" : "🎮 Sign In & Play"}
           </button>
-        </form>
 
-        {/* Switch Form */}
-        <p className="mt-6 text-center text-sm">
-          {isRegistering ? "Already have an account?" : "Don't have an account?"}{" "}
-          <button
-            type="button"
-            onClick={() => setIsRegistering(!isRegistering)}
-            className="underline font-semibold text-purple-600 dark:text-purple-400"
-          >
-            {isRegistering ? "Login" : "Register"}
-          </button>
-        </p>
+          {/* OR with Socials */}
+          <div className="text-center text-sm text-gray-400">Or continue with</div>
+          <div className="flex gap-3">
+            <button className="flex-1 bg-[#121d3f] hover:bg-[#1f2a4d] py-2 rounded-full text-white font-semibold flex items-center justify-center gap-2 shadow-md">
+              <FaGoogle /> Google
+            </button>
+            <button className="flex-1 bg-[#121d3f] hover:bg-[#1f2a4d] py-2 rounded-full text-white font-semibold flex items-center justify-center gap-2 shadow-md">
+              <FaFacebookF /> Facebook
+            </button>
+          </div>
+
+          {/* Toggle Mode */}
+          <p className="text-center text-xs mt-4 text-gray-400">
+            {isRegistering ? "Already have an account?" : "Don’t have an account?"}{' '}
+            <button
+              onClick={() => setIsRegistering(!isRegistering)}
+              className="text-yellow-400 font-bold hover:underline"
+            >
+              {isRegistering ? "Sign in now" : "Sign up now"}
+            </button>
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom Utility Buttons */}
+      <div className="absolute bottom-8 flex gap-4 z-10 hidden">
+        <button className="bg-[#1f2a4d] hover:bg-[#26346e] text-white px-5 py-2 rounded-full border border-white/10 text-sm flex items-center gap-2 shadow-md">
+          <FaLock /> Secure Login
+        </button>
+        <button className="bg-[#1f2a4d] hover:bg-[#26346e] text-white px-5 py-2 rounded-full border border-white/10 text-sm flex items-center gap-2 shadow-md">
+          💸 Instant Access
+        </button>
+        <div className="bg-[#1f2a4d] hover:bg-[#26346e] text-white px-5 py-2 border border-white/10 text-sm flex items-center gap-2 shadow-md">
+          <FaGift /> Welcome Bonus
+        </div>
       </div>
     </div>
   );
