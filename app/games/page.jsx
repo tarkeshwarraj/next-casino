@@ -11,11 +11,7 @@ export default function LoadGamePage() {
           <span className="text-orange-400">GAMING COLLECTION</span>
         </h1>
         <p className="mt-4 text-slate-300">Choose from our curated selection of premium sweepstakes experiences</p>
-        <div className="mt-4 flex justify-center gap-6 text-sm text-slate-400">
-          <span className="text-green-400">✔ Instant Delivery</span>
-          <span className="text-orange-300">🔒 Secure Payment</span>
-          <span className="text-red-400">📞 24/7 Support</span>
-        </div>
+        
       </section>
 
       {/* Game Cards */}
@@ -43,6 +39,11 @@ export default function LoadGamePage() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="mt-10 flex justify-center gap-6 text-sm text-slate-400">
+          <span className="text-green-400">✔ Instant Delivery</span>
+          <span className="text-orange-300">🔒 Secure Payment</span>
+          <span className="text-red-400">📞 24/7 Support</span>
         </div>
       </section>
     </div>
