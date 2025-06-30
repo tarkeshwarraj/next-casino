@@ -5,6 +5,7 @@ export default function RewardsHubPage() {
   const todayRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const [startIndex, setStartIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const visibleRewards = rewardDays.slice(startIndex, startIndex + 8);
 
@@ -13,6 +14,19 @@ export default function RewardsHubPage() {
       todayRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
   }, [startIndex]);
+
+  useEffect(() => {
+  if (typeof window !== "undefined") {
+    setIsDesktop(window.innerWidth >= 768);
+
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }
+}, []);
 
   const scrollLeft = () => {
     if (startIndex > 0) setStartIndex(startIndex - 1);
@@ -46,7 +60,7 @@ export default function RewardsHubPage() {
 
         <div className="mt-6 overflow-x-auto scrollbar-hide md:overflow-hidden" ref={scrollContainerRef}>
           <div className="flex gap-3 w-max md:w-full md:justify-center">
-            {(window.innerWidth >= 768 ? visibleRewards : rewardDays).map((day, idx) => (
+            {(isDesktop ? visibleRewards : rewardDays).map((day, idx) => (
               <div
                 key={startIndex + idx}
                 ref={day.status === 'today' ? todayRef : null}
