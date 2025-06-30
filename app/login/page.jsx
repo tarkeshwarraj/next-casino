@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, Suspense} from 'react';
 import { FaGoogle, FaFacebookF, FaLock, FaGift } from 'react-icons/fa';
 import {useSearchParams} from 'next/navigation';
 
@@ -14,6 +14,7 @@ export default function LoginPage() {
     }
   }, [searchParams])
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="px-4 md:px-0 relative min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0c143a] to-[#1a2b87] text-white overflow-hidden">
       
       {/* Floating Icons */}
@@ -110,5 +111,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 }
