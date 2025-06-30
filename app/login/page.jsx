@@ -2,6 +2,7 @@
 import React, { useState, useEffect, Suspense} from 'react';
 import { FaGoogle, FaFacebookF, FaLock, FaGift } from 'react-icons/fa';
 import {useSearchParams} from 'next/navigation';
+import { Suspense } from 'react';
 
 export default function LoginPage() {
   const searchParams = useSearchParams()
