@@ -1,64 +1,50 @@
 "use client";
-
-import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.style.setProperty("--background", "rgb(13, 27, 42)");
-      root.style.setProperty("--foreground", "#ededed");
-    } else {
-      root.style.setProperty("--background", "#ffffff");
-      root.style.setProperty("--foreground", "#171717");
-    }
-  }, [isDarkMode]);
-
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
-    <div className="bg-[#09102b]">
+    <div className="bg-gradient-to-r from-[#0c0f24] to-[#121a36]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <header className="flex justify-between items-center py-6">
-          <h1 className="text-xl font-bold text-yellow-400">Royal Casino</h1>
+          <h1 className="text-xl font-bold text-[#FFD700]">Royal Casino</h1>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex space-x-6 text-sm">
-            <Link href="#" className="hover:text-yellow-300">Games</Link>
-            <Link href="#" className="hover:text-yellow-300">Promotions</Link>
-            <Link href="#" className="hover:text-yellow-300">VIP</Link>
-            <Link href="#" className="hover:text-yellow-300">Support</Link>
+          <nav className="hidden md:flex space-x-6 text-sm text-gray-200">
+            <Link href="#" className="hover:text-[#FACC15] transition-colors">Games</Link>
+            <Link href="#" className="hover:text-[#FACC15] transition-colors">Promotions</Link>
+            <Link href="#" className="hover:text-[#FACC15] transition-colors">VIP</Link>
+            <Link href="#" className="hover:text-[#FACC15] transition-colors">Support</Link>
           </nav>
 
-          {/* Auth Buttons (Desktop) */}
+          {/* Auth Buttons */}
           <div className="hidden md:flex space-x-3">
-            <button className="bg-yellow-400 px-4 py-1 rounded text-black font-semibold">Login</button>
-            <button className="border border-yellow-400 px-4 py-1 rounded text-yellow-400 font-semibold">Sign Up</button>
+            <button className="bg-[#f7c948] text-black font-bold px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-lg">Login</button>
+            <button className="border border-[#f7c948] text-[#f7c948] font-bold px-6 py-2 rounded-full hover:bg-[#f7c948] hover:text-black transition-all shadow-md">Sign Up</button>
           </div>
 
-          {/* Mobile Menu Icon */}
-          <button onClick={toggleMenu} className="md:hidden text-yellow-400 text-xl">
+          {/* Mobile Icon */}
+          <button onClick={toggleMenu} className="md:hidden text-[#FFD700] text-xl">
             {isMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </header>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Dropdown */}
         {isMenuOpen && (
-          <div className="md:hidden text-sm space-y-4 pb-4">
+          <div className="md:hidden text-sm space-y-4 pb-4 text-gray-200">
             <nav className="flex flex-col gap-2">
-              <Link href="#" className="hover:text-yellow-300">Games</Link>
-              <Link href="#" className="hover:text-yellow-300">Promotions</Link>
-              <Link href="#" className="hover:text-yellow-300">VIP</Link>
-              <Link href="#" className="hover:text-yellow-300">Support</Link>
+              <Link href="#" className="hover:text-[#FACC15]">Games</Link>
+              <Link href="#" className="hover:text-[#FACC15]">Promotions</Link>
+              <Link href="#" className="hover:text-[#FACC15]">VIP</Link>
+              <Link href="#" className="hover:text-[#FACC15]">Support</Link>
             </nav>
             <div className="flex gap-2 pt-2">
-              <button className="bg-yellow-400 w-full py-2 rounded text-black font-semibold">Login</button>
-              <button className="border border-yellow-400 w-full py-2 rounded text-yellow-400 font-semibold">Sign Up</button>
+              <button className="bg-[#f7c948] text-black font-bold px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-lg">Login</button>
+              <button className="border border-[#f7c948] text-[#f7c948] font-bold px-6 py-2 rounded-full hover:bg-[#f7c948] hover:text-black transition-all shadow-md">Sign Up</button>
             </div>
           </div>
         )}

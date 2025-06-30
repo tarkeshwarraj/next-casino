@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
 
 @tailwind base;
 @tailwind components;
@@ -9,7 +9,7 @@
 /* html {
   scroll-behavior: smooth;
 } */
- * {
+* {
   font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -29,9 +29,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-   --background: #0d1b2a; /* deep navy blue */
-  --foreground: #e0e1dd; /* soft white */
-
+    --background: #0d1b2a; /* deep navy blue */
+    --foreground: #e0e1dd; /* soft white */
   }
 }
 
@@ -39,13 +38,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Outfit";
-  transition: background-color 0.5s ease, color 0.5s ease;  
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-.app{
+.app {
   margin: auto;
 }
-
 
 /* app/btc-pay/btc-pay.module.css */
 .btc-pay-page {
@@ -81,7 +79,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;
 }
 
@@ -91,13 +89,23 @@ body {
 
 /* Custom Floating Animation */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes float2 {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(15px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(15px);
+  }
 }
 
 /* Custom Classes */
@@ -110,3 +118,15 @@ body {
   animation: float2 8s ease-in-out infinite;
   display: inline-block;
 }
+
+@keyframes glow {
+          0%, 100% {
+            box-shadow: 0 0 15px #a855f7, 0 0 25px #818cf8;
+          }
+          50% {
+            box-shadow: 0 0 30px #a855f7, 0 0 40px #818cf8;
+          }
+        }
+        .animate-glow {
+          animation: glow 2s ease-in-out infinite;
+        }

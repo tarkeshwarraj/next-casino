@@ -18,9 +18,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="">
-        <div className="bg-gradient-to-b from-[#0A0F2C] to-[#041230] text-white min-h-screen font-sans flex flex-col items-center">
+        <div className= "bg-gradient-to-b from-[#0A0F2C] via-[#0d112a] to-[#050918] text-white min-h-screen font-sans flex flex-col items-center">
           <div className="w-full">
-
           <Navbar />
           <div className="app">
             {children}
