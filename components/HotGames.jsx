@@ -40,7 +40,7 @@ const HotGames = () => {
             {
               name: 'Mega Fortune',
               reward: '$2.4M Jackpot',
-              image: '/images/hotgames/1000.gif'
+              image: '/images/HotGames/1000.gif'
             },
             {
               name: 'Royal Blackjack',
