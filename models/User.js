@@ -1,8 +1,15 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  email: String,
-  request_amount: Number,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

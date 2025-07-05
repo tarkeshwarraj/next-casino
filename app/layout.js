@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import { connectAndLog } from "@/lib/startup";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 // Run MongoDB connection on server start
 if (typeof window === "undefined") {
@@ -22,7 +23,9 @@ export default function RootLayout({ children }) {
           <div className="w-full">
           <Navbar />
           <div className="app">
+            <AuthProvider>
             {children}
+            </AuthProvider>
             <Footer />
           </div>
           </div>

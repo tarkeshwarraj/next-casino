@@ -2,10 +2,57 @@
 import React, { useState, useEffect, Suspense} from 'react';
 import { FaGoogle, FaFacebookF, FaLock, FaGift } from 'react-icons/fa';
 import {useSearchParams} from 'next/navigation';
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useAuth } from '@/context/AuthContext';
+
 
 export default function LoginPage() {
   const searchParams = useSearchParams()
   const [isRegistering, setIsRegistering] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const router = useRouter();
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    if(isRegistering) {
+      if(password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      
+      //Here You can call your api route to register user in DB
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify({email, password}),
+      });
+      if(!res.ok) {
+        alert("Signup failed");
+        return;
+      }
+    }
+
+    //Sign in after register or for login
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers:{"Content-Type": "application/json"},
+      body: JSON.stringify({email, password}),
+    });
+
+    const data = await res.json();
+
+    if(res.ok) {
+      localStorage.setItem("token", data.token);
+      router.push("/");
+    }else{
+      alert("Login failed");
+    }
+  };
 
   useEffect(() => {
     const mode = searchParams.get('mode')
@@ -42,6 +89,8 @@ export default function LoginPage() {
             <input
               type="email"
               placeholder="📧 Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 rounded-full bg-[#2c3866] text-white placeholder-gray-400 border border-[#3f4c7a] focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
           </div>
@@ -52,6 +101,8 @@ export default function LoginPage() {
             <input
               type="password"
               placeholder="🔒 Enter your password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
               className="w-full px-4 py-2 rounded-full bg-[#2c3866] text-white placeholder-gray-400 border border-[#3f4c7a] focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
           </div>
@@ -62,6 +113,8 @@ export default function LoginPage() {
               <label className="block text-sm mb-1">Confirm Password</label>
               <input
                 type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="🔒 Confirm your password"
                 className="w-full px-4 py-2 rounded-full bg-[#2c3866] text-white placeholder-gray-400 border border-[#3f4c7a] focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
@@ -69,17 +122,23 @@ export default function LoginPage() {
           )}
 
           {/* Submit Button */}
-          <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 rounded-full font-bold text-black shadow-lg hover:shadow-yellow-500/40 hover:scale-105 transition-transform">
+          <button 
+          onClick={handleSubmit}
+          className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 rounded-full font-bold text-black shadow-lg hover:shadow-yellow-500/40 hover:scale-105 transition-transform">
             {isRegistering ? "🎯 Sign Up & Play" : "🎮 Sign In & Play"}
           </button>
 
           {/* OR with Socials */}
           <div className="text-center text-sm text-gray-400">Or continue with</div>
           <div className="flex gap-3">
-            <button className="flex-1 bg-[#121d3f] hover:bg-[#1f2a4d] py-2 rounded-full text-white font-semibold flex items-center justify-center gap-2 shadow-md">
+            <button 
+            onClick={() => signIn('google')}
+            className="flex-1 bg-[#121d3f] hover:bg-[#1f2a4d] py-2 rounded-full text-white font-semibold flex items-center justify-center gap-2 shadow-md">
               <FaGoogle /> Google
             </button>
-            <button className="flex-1 bg-[#121d3f] hover:bg-[#1f2a4d] py-2 rounded-full text-white font-semibold flex items-center justify-center gap-2 shadow-md">
+            <button 
+            onClick={() => signIn('facebook')}
+            className="flex-1 bg-[#121d3f] hover:bg-[#1f2a4d] py-2 rounded-full text-white font-semibold flex items-center justify-center gap-2 shadow-md">
               <FaFacebookF /> Facebook
             </button>
           </div>

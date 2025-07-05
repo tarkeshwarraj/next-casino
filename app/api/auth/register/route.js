@@ -15,6 +15,11 @@ export async function POST(req){
 
      const {email, password} = body;
 
+     if (!email || !password) {
+      console.log('Missing email or password'); // Debug log
+      return NextResponse.json({ error: 'Missing email or password' }, { status: 400 });
+    }
+
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -23,10 +28,10 @@ export async function POST(req){
     }
 
     const hashedPassword = await hashPassword(password);
+    console.log(hashedPassword);
 
     const newUser = await User.create({ email, password: hashedPassword });
 
-    console.log(newUser);  //Debug log
 
     // Create JWT token here
     const token = generateToken(newUser);

@@ -1,13 +1,28 @@
 "use client";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); //track login status
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    router.push("/login");
+  };
+
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+    if(!token){
+      router.push("/login");
+    }
+  }, [])
 
   return (
     <div className="bg-gradient-to-r from-[#0c0f24] to-[#121a36]">
@@ -39,9 +54,22 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Auth Buttons */}
+          {/* Auth or User Section */}
           <div className="hidden md:flex space-x-3">
-            <button
+            {isLoggedIn ? (
+              <div className="flex items-center gap-3 text-yellow-300">
+                <FaUserCircle className="text-xl" />
+                <span className="text-sm">Hi, Player</span>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm px-4 py-2 border border-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition"
+                >
+                  Logout
+                </button>
+              </div>
+            ):(
+              <>
+              <button
               className="cursor-pointer bg-[#f7c948] text-black font-bold px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-lg "
               onClick={() => router.push("/login")}
             >
@@ -53,6 +81,9 @@ export default function Navbar() {
             >
               Sign Up
             </button>
+              </>
+            )}
+            
           </div>
 
           {/* Mobile Icon */}
@@ -86,7 +117,25 @@ export default function Navbar() {
               </Link>
             </nav>
             <div className="flex flex-col gap-3 pt-4">
-              <button
+              {isLoggedIn ? (
+                <>
+                <div className="flex items-center gap-2 justify-center text-yellow-300">
+                    <FaUserCircle />
+                    <span>Hi, Player</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="bg-yellow-400 text-black font-bold px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-lg"
+                  >
+                    Logout
+                  </button>
+                </>
+              ):(
+                <>
+                <button
                 className="cursor-pointer bg-[#f7c948] text-black font-bold px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 onClick={() => {
                   setIsMenuOpen(false);
@@ -104,6 +153,8 @@ export default function Navbar() {
               >
                 Sign Up
               </button>
+                </>
+              )}
             </div>
           </div>
         )}
