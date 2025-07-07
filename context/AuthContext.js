@@ -4,25 +4,46 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const checkLogin = async () => {
+    try {
+      const res = await fetch("/api/auth/auth-check", { credentials: "include" });
+      const data = await res.json();
+      if (data.isLoggedIn) {
+        setIsLoggedIn(true);
+        setUser(data.user);
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    } catch (err) {
+      setIsLoggedIn(false);
+      setUser(null);
+    }
+  };
+
+  const logout = async () => {
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+    setIsLoggedIn(false);
+    setUser(null);
+  };
 
   useEffect(() => {
-    const stored = localStorage.getItem("token");
-    if (stored) setToken(stored);
+    checkLogin();
   }, []);
 
-  const login = (newToken) => {
-    localStorage.setItem("token", newToken);
-    setToken(newToken);
-  };
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-  };
-
   return (
-    <AuthContext.Provider value={{ token, isLoggedIn: !!token, login, logout }}>
+    <AuthContext.Provider value={{
+        isLoggedIn,
+        user,
+        checkLogin, // ✅ Expose it to consumer
+        logout,
+      }}>
       {children}
     </AuthContext.Provider>
   );

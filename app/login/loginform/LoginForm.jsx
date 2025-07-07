@@ -9,12 +9,20 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
   const searchParams = useSearchParams()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isLoggedIn, user, logout, checkLogin } = useAuth();
   const [isRegistering, setIsRegistering] = useState(false)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const router = useRouter();
+
+    useEffect(() => {
+    const mode = searchParams.get('mode')
+    if (mode === 'signup') {
+      setIsRegistering(true)
+    }
+  }, [searchParams])
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -42,24 +50,21 @@ export default function LoginPage() {
       method: "POST",
       headers:{"Content-Type": "application/json"},
       body: JSON.stringify({email, password}),
+      credentials: "include",
     });
 
     const data = await res.json();
 
     if(res.ok) {
-      localStorage.setItem("token", data.token);
+      await checkLogin();
       router.push("/");
     }else{
+      const error = await res.json();
       alert("Login failed");
     }
   };
 
-  useEffect(() => {
-    const mode = searchParams.get('mode')
-    if (mode === 'signup') {
-      setIsRegistering(true)
-    }
-  }, [searchParams])
+
   return (
     <div className="px-4 md:px-0 relative min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0c143a] to-[#1a2b87] text-white overflow-hidden">
       

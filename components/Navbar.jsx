@@ -3,25 +3,24 @@ import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const router = useRouter();
+  const { isLoggedIn, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); //track login status
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    router.push("/login");
+     logout();           // context के logout को call करें
+  router.push("/login");
   };
 
   useEffect(()=>{
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-    if(!token){
-      router.push("/login");
-    }
+  if (!token) {
+    router.push("/login");
+  }
   }, [])
 
   return (
