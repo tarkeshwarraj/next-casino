@@ -22,8 +22,7 @@ export default function LoadGamePage() {
             <div key={idx} className="bg-slate-800 rounded-xl p-5 shadow-lg hover:shadow-2xl transition-shadow">
               <div className={`rounded-lg h-36 mb-4 flex justify-center items-center text-3xl ${game.bg}`}>{game.icon}</div>
               <h3 className="text-lg font-semibold mb-1">{game.title}</h3>
-              <p className="text-slate-400 text-sm mb-1">{game.desc}</p>
-              <div className="text-sm text-yellow-400 font-medium">Min: ${game.min}</div>
+              <div className="text-xs font-medium">Username: <span className="text-sm text-yellow-400 font-medium">{game.username}</span></div>
               <div className="text-xs text-green-400 mb-3">{game.label}</div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
@@ -52,10 +51,10 @@ export default function LoadGamePage() {
 }
 
 const games = [
-  { title: 'Vegas Sweeps', desc: 'Classic Vegas-style slots and table games', min: 10, label: '🔥 Popular', icon: '🎰', bg: 'bg-gradient-to-r from-red-500 to-red-700', btnColor: 'bg-red-600' },
-  { title: 'Orion Star', desc: 'Space-themed adventure slots', min: 15, label: '🚀 Trending', icon: '⭐', bg: 'bg-gradient-to-r from-purple-500 to-purple-700', btnColor: 'bg-purple-600' },
-  { title: 'Sirius', desc: 'Premium gaming experience', min: 20, label: '💎 Premium', icon: '🧩', bg: 'bg-gradient-to-r from-blue-500 to-teal-500', btnColor: 'bg-blue-600' },
-  { title: 'Panda Master', desc: 'Asian-themed slot adventures', min: 10, label: '🍃 Classic', icon: '🐼', bg: 'bg-gradient-to-r from-green-500 to-green-700', btnColor: 'bg-green-600' },
-  { title: 'Milky Way', desc: 'Cosmic gaming adventure', min: 25, label: '🌌 Exclusive', icon: '🛸', bg: 'bg-gradient-to-r from-pink-500 to-purple-600', btnColor: 'bg-pink-600' },
-  { title: 'Fire Kirin', desc: 'High-energy fishing games', min: 15, label: '🔥 Action', icon: '🔥', bg: 'bg-gradient-to-r from-orange-500 to-red-500', btnColor: 'bg-orange-600' },
+  { title: 'Vegas Sweeps', desc: 'Classic Vegas-style slots and table games', username: "vuserplay", label: '🔥 Popular', icon: '🎰', bg: 'bg-gradient-to-r from-red-500 to-red-700', btnColor: 'bg-red-600' },
+  { title: 'Orion Star', desc: 'Space-themed adventure slots', username: "ostartplay", label: '🚀 Trending', icon: '⭐', bg: 'bg-gradient-to-r from-purple-500 to-purple-700', btnColor: 'bg-purple-600' },
+  { title: 'Sirius', desc: 'Premium gaming experience', username: "siriusplay", label: '💎 Premium', icon: '🧩', bg: 'bg-gradient-to-r from-blue-500 to-teal-500', btnColor: 'bg-blue-600' },
+  { title: 'Panda Master', desc: 'Asian-themed slot adventures', username: "pcutegame", label: '🍃 Classic', icon: '🐼', bg: 'bg-gradient-to-r from-green-500 to-green-700', btnColor: 'bg-green-600' },
+  { title: 'Milky Way', desc: 'Cosmic gaming adventure', username: "mgameot", label: '🌌 Exclusive', icon: '🛸', bg: 'bg-gradient-to-r from-pink-500 to-purple-600', btnColor: 'bg-pink-600' },
+  { title: 'Fire Kirin', desc: 'High-energy fishing games', username: "fgain", label: '🔥 Action', icon: '🔥', bg: 'bg-gradient-to-r from-orange-500 to-red-500', btnColor: 'bg-orange-600' },
 ];
