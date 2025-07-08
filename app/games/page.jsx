@@ -17,7 +17,7 @@ export default function LoadGamePage() {
       {/* Game Cards */}
       <section className="px-6 pb-10">
         <h2 className="text-center text-2xl font-semibold mb-6">Select Your Game</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-6xl mx-auto">
           {games.map((game, idx) => (
             <div key={idx} className="bg-slate-800 rounded-xl p-5 shadow-lg hover:shadow-2xl transition-shadow">
               <div className={`rounded-lg h-36 mb-4 flex justify-center items-center text-3xl ${game.bg}`}>{game.icon}</div>
@@ -40,6 +40,7 @@ export default function LoadGamePage() {
             </div>
           ))}
         </div>
+
         <div className="mt-10 flex justify-center gap-6 text-sm text-slate-400">
           <span className="text-green-400">✔ Instant Delivery</span>
           <span className="text-orange-300">🔒 Secure Payment</span>

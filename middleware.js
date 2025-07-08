@@ -14,8 +14,8 @@ export const config = {
     matcher: [
         "/dashboard/:path*",
         "/games/:path*",
-        "/profile/:path*",
         "/account/:path*",
         "/promotions/:path*",
+        "/trust-pay/:path*",
     ],
 }
