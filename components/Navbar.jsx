@@ -54,10 +54,10 @@ export default function Navbar() {
             >
               Promotions
             </Link>
-            <Link href="#" className="hover:text-[#FACC15] transition-colors">
-              VIP
+            <Link href="/trust-pay" className="hover:text-[#FACC15] transition-colors">
+              Quick Recharge
             </Link>
-            <Link href="#" className="hover:text-[#FACC15] transition-colors">
+            <Link href="/support" className="hover:text-[#FACC15] transition-colors">
               Support
             </Link>
           </nav>
@@ -148,14 +148,14 @@ export default function Navbar() {
                 Promotions
               </Link>
               <Link
-                href="#"
+                href="/trust-pay"
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#FACC15]"
               >
-                VIP
+                Quick Recharge
               </Link>
               <Link
-                href="#"
+                href="/support"
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#FACC15]"
               >

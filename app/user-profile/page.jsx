@@ -48,7 +48,10 @@ export default function UserProfile() {
                 { name: 'Mega Win', username: 'MegaWinner23', color: 'bg-pink-500' }
               ].map(({ name, username, color }) => (
                 <div key={name} className={`rounded-lg p-4 ${color} text-white shadow-md`}>
+                  <div className="flex justify-between">
                   <h4 className="font-semibold text-md">{name}</h4>
+                  <button className="bg-amber-300 text-gray-800 px-1 text-sm py-0 rounded">Edit</button>
+                  </div>
                   <p className="text-sm">Username: {username}</p>
                   <p className="text-sm text-green-100">Status: Connected</p>
                 </div>
