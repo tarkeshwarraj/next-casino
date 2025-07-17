@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import { hashPassword } from '@/utils/hashPassword';
-import User from '@/models/User'; 
+import User from '@/models/User';
 import jwt from 'jsonwebtoken';
+import GamingAccount from '../../../../models/GamingAcount';
 import { generateToken } from '@/utils/generateToken';
 
 export async function POST(req){
@@ -12,7 +13,6 @@ export async function POST(req){
      await connectDB();
 
      const body = await req.json();  //Parse once
-
      const {email, password} = body;
 
      if (!email || !password) {
@@ -28,10 +28,10 @@ export async function POST(req){
     }
 
     const hashedPassword = await hashPassword(password);
-    console.log(hashedPassword);
 
-    const newUser = await User.create({ email, password: hashedPassword });
+    const newUser = await User.create({ email, password: hashedPassword });  // ya sa ._id milage
 
+    await GamingAccount.create({ user: newUser._id, accounts: [{}] });  //yaha user._id save kar deta hai
 
     // Create JWT token here
     const token = generateToken(newUser);

@@ -59,7 +59,6 @@ export default function LoginPage() {
       await checkLogin();
       router.push("/");
     }else{
-      const error = await res.json();
       alert("Login failed");
     }
   };

@@ -8,8 +8,8 @@ export async function POST() {
 
     res.cookies.set("token", "", {
         httpOnly: true,
-        path: "/",
         expires: new Date(0),
+        path: "/",
     });
     return res;
 }
