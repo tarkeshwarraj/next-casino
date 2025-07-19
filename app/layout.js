@@ -19,17 +19,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="">
-        <div className= "bg-gradient-to-b from-[#0A0F2C] via-[#0d112a] to-[#050918] text-white min-h-screen font-sans flex flex-col items-center">
+        <div className="bg-gradient-to-b from-[#0A0F2C] via-[#0d112a] to-[#050918] text-white min-h-screen font-sans flex flex-col items-center">
           <div className="w-full">
             <AuthProvider>
-          <Navbar />
-          <div className="app">
-            
-            {children}
-            
-            <Footer />
-          </div>
-          </AuthProvider>
+              <Navbar />
+              <div className="app">
+                {children}
+                <Footer />
+              </div>
+            </AuthProvider>
           </div>
           {/* Floating Support Icons */}
           {/* <div className="support-icons">
