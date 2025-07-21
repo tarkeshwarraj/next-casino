@@ -3,7 +3,7 @@ import connectDB from '@/lib/db';
 import { hashPassword } from '@/utils/hashPassword';
 import User from '@/models/User';
 import jwt from 'jsonwebtoken';
-import GamingAccount from '../../../../models/GamingAcount';
+import GamingAccount from '../../../../models/GamingAccount';
 import { generateToken } from '@/utils/generateToken';
 
 export async function POST(req){

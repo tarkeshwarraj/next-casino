@@ -4,6 +4,7 @@ import "./globals.css";
 import { connectAndLog } from "@/lib/startup";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { UserProvider } from "@/context/UserContext";
 
 // Run MongoDB connection on server start
 if (typeof window === "undefined") {
@@ -22,11 +23,13 @@ export default function RootLayout({ children }) {
         <div className="bg-gradient-to-b from-[#0A0F2C] via-[#0d112a] to-[#050918] text-white min-h-screen font-sans flex flex-col items-center">
           <div className="w-full">
             <AuthProvider>
-              <Navbar />
-              <div className="app">
-                {children}
-                <Footer />
-              </div>
+              <UserProvider>
+                <Navbar />
+                <div className="app">
+                  {children}
+                  <Footer />
+                </div>
+              </UserProvider>
             </AuthProvider>
           </div>
           {/* Floating Support Icons */}

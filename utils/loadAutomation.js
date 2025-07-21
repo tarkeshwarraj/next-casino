@@ -2,37 +2,20 @@ import solveCaptcha from "../lib/captcha.js";
 import https from "https";
 import { chromium } from "playwright-core";
 
-// 🔧 Helper: fetch image and convert to base64 using Node.js
-function fetchImageAsBase64(url) {
-  return new Promise((resolve, reject) => {
-    https
-      .get(url, (res) => {
-        const chunks = [];
-        res.on("data", (chunk) => chunks.push(chunk));
-        res.on("end", () => {
-          const buffer = Buffer.concat(chunks);
-          resolve(buffer.toString("base64"));
-        });
-      })
-      .on("error", (err) => reject(err));
-  });
-}
 
-//Recharge function
-export async function rechargeBalance(context, page, payloadData) {
+//Recharge function Game Vault
+export async function rechargeGameVault(context , page, payloadData) {
   try {
     // Get cookies & __cookie145202
     const cookies = await context.cookies();
     const cookieHeader = cookies.map((c) => c.name === "__cookie145202")?.value;
-    console.log(cookieHeader);
 
     //Get bearer token from local/session storage
     const bearerToken = await page.evaluate(
       () => localStorage.getItem("token") || sessionStorage.getItem("token")
     );
-    // console.log('this is token', bearerToken);
 
-    // if(!bearerToken) throw new Error("Bearer token not found");
+    if(!bearerToken) throw new Error("Bearer token not found");
 
     const payload = {
       ...payloadData,
@@ -72,13 +55,25 @@ export async function rechargeBalance(context, page, payloadData) {
 }
 
 //This will login to GameVault
-export async function loginToGameVault(username, password) {
+export async function loginToGameVault(customPayload) {
+
+  const payload = {
+    account: customPayload?.username,
+    amount: customPayload?.amount,
+    locale: "en",
+    remark: "",
+    timezone: "cst",
+    type: 1,
+    user_id: customPayload?.gameId,
+  }
+  const username = process.env.GAMEVAULT_USERNAME;
+  const password = process.env.GAMEVAULT_PASSWORD;
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
   const page = await context.newPage();
 
   try {
-    // 🟡 Step 1: Check if already logged in
+    //🟡 Step 1: Check if already logged in
     // await page.goto("https://agent.gamevault999.com/HomeDetail", {
     //   waitUntil: "domcontentloaded",
     // });
@@ -87,8 +82,8 @@ export async function loginToGameVault(username, password) {
     // if (currentUrl === "https://agent.gamevault999.com/HomeDetail") {
     //   console.log("✅ पहले से लॉगिन है, कोई लॉगिन ज़रूरत नहीं।");
 
-    //Recharge directly
-    //   await rechargeBalance(context, page, getRechargePayload());
+   // Recharge directly
+    //   await rechargeBalance(context, page, payload);
     //   return;
     // }
 
@@ -129,7 +124,7 @@ export async function loginToGameVault(username, password) {
 
     // Debug content
     const content = await page.content();
-    console.log("🔍 Page after login:\n", content.slice(0, 1500)); // trimmed HTML
+    //console.log("🔍 Page after login:\n", content.slice(0, 1500)); // trimmed HTML
 
     // Check for login failure
     const errorMessage = await page.$(".el-message--error");
@@ -146,30 +141,10 @@ export async function loginToGameVault(username, password) {
 
     //Step 8: Check if login was successful Recharge after successful login
     console.log("Login successful");
-    await rechargeBalance(context, page, getRechargePayload()); //Line number 6
+    await rechargeGameVault(context, page, payload); //Line number 6
   } catch (error) {
     console.log("Error logging in to GameVault:", error);
   } finally {
     await browser.close();
   }
 }
-
-// 📦 Recharge Payload Generator (you can make this dynamic)
-function getRechargePayload() {
-  return {
-    account: "gtorii",
-    amount: "2",
-    balance: 0.03,
-    locale: "en",
-    remark: "",
-    timezone: "cst",
-    type: 1,
-    user_id: "11449424",
-    // __cookie will be filled dynamically
-  };
-}
-
-// ⛳ Example run
-(async () => {
-  await loginToGameVault("karkin008", "ask@123");
-})();
