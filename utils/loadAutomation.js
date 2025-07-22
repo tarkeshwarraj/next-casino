@@ -1,5 +1,4 @@
 import solveCaptcha from "../lib/captcha.js";
-import https from "https";
 import { chromium } from "playwright-core";
 
 
@@ -68,7 +67,9 @@ export async function loginToGameVault(customPayload) {
   }
   const username = process.env.GAMEVAULT_USERNAME;
   const password = process.env.GAMEVAULT_PASSWORD;
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.connect(
+      `wss://production-sfo.browserless.io/chromium/playwright?token=${process.env.BROWSERLESS_TOKEN}`
+    );
   const context = await browser.newContext();
   const page = await context.newPage();
 

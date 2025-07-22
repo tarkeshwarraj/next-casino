@@ -12,8 +12,9 @@ export async function GET(req) {
       });
     }
 
+    //browserless.io hai jaha hmara browser run hoga
     const browser = await chromium.connect(
-      `wss://production-sfo.browserless.io/chromium/playwright?token=2SKFGScKsveYbjp48c8f09230dd1a25c554690ed0b5cfa1d1`
+      `wss://production-sfo.browserless.io/chromium/playwright?token=${process.env.BROWSERLESS_TOKEN}`
     );
 
     const context = await browser.newContext();
